@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -14,242 +13,185 @@
 <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#12100E;
-  --paper:#EDE7DC;
-  --rule:#C9BFAE;
-  --dim:#7A7266;
-  --mark:#8C3A2B;
-  --good:#3F6B4A;
-  --r:10px;
-  --safe-b:env(safe-area-inset-bottom,0px);
-  --safe-t:env(safe-area-inset-top,0px);
+  --ink:#12100E;--paper:#EDE7DC;--rule:#C9BFAE;--dim:#7A7266;
+  --mark:#8C3A2B;--good:#3F6B4A;--r:10px;
+  --safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;height:100%}
-body{
-  background:var(--paper);
-  color:var(--ink);
-  font-family:'Bitter',Georgia,serif;
-  font-size:16px;
-  line-height:1.45;
-  overscroll-behavior-y:none;
-  -webkit-font-smoothing:antialiased;
-}
+body{background:var(--paper);color:var(--ink);font-family:'Bitter',Georgia,serif;font-size:16px;line-height:1.45;overscroll-behavior-y:none;-webkit-font-smoothing:antialiased}
 .mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
 
-/* ––––– shell ––––– */
-#app{padding-top:var(–safe-t);padding-bottom:calc(64px + var(–safe-b));min-height:100%}
-header{
-padding:14px 18px 10px;
-border-bottom:1.5px solid var(–ink);
-display:flex;align-items:baseline;justify-content:space-between;gap:12px;
-position:sticky;top:var(–safe-t);background:var(–paper);z-index:20;
-}
-header h1{
-font-size:15px;font-weight:700;margin:0;letter-spacing:.14em;text-transform:uppercase;
-font-family:‘IBM Plex Mono’,monospace;
-}
+#app{padding-top:var(--safe-t);padding-bottom:calc(64px + var(--safe-b));min-height:100%}
+header{padding:14px 18px 10px;border-bottom:1.5px solid var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:12px;position:sticky;top:var(--safe-t);background:var(--paper);z-index:20}
+.brand{display:flex;align-items:center;gap:9px;min-width:0}
+header h1{font-size:15px;font-weight:700;margin:0;letter-spacing:.14em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace}
+.who{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--good);flex-shrink:0}
+.dot.sync{background:var(--dim);animation:pulse 1s infinite}
+.dot.off{background:var(--mark)}
+@keyframes pulse{50%{opacity:.3}}
 .datenav{display:flex;align-items:center;gap:2px}
-.datenav button{
-background:none;border:none;color:var(–ink);font-size:17px;padding:4px 9px;cursor:pointer;
-font-family:‘IBM Plex Mono’,monospace;line-height:1;
-}
+.datenav button{background:none;border:none;color:var(--ink);font-size:17px;padding:4px 9px;cursor:pointer;font-family:'IBM Plex Mono',monospace;line-height:1}
 .datenav button:disabled{opacity:.25}
-.datelabel{
-font-family:‘IBM Plex Mono’,monospace;font-size:12px;letter-spacing:.06em;
-min-width:104px;text-align:center;text-transform:uppercase;
-}
+.datelabel{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;min-width:92px;text-align:center;text-transform:uppercase}
 main{padding:0 18px}
-section{padding:18px 0;border-bottom:1px solid var(–rule)}
+section{padding:18px 0;border-bottom:1px solid var(--rule)}
 section:last-child{border-bottom:none}
-.eyebrow{
-font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.18em;
-text-transform:uppercase;color:var(–dim);margin:0 0 12px;display:flex;
-justify-content:space-between;align-items:center;
-}
-.eyebrow button{
-font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.12em;
-background:none;border:none;color:var(–mark);text-transform:uppercase;cursor:pointer;padding:2px 0;
-}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin:0 0 12px;display:flex;justify-content:space-between;align-items:center}
+.eyebrow button{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;background:none;border:none;color:var(--mark);text-transform:uppercase;cursor:pointer;padding:2px 0}
 
-/* ––––– the ledger rules: signature element ––––– */
 .rules{display:flex;flex-direction:column;gap:0}
-.rule-row{padding:11px 0;border-bottom:1px solid var(–rule)}
+.rule-row{padding:11px 0;border-bottom:1px solid var(--rule)}
 .rule-row:last-child{border-bottom:none}
 .rule-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
-.rule-name{font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-.rule-fig{font-family:‘IBM Plex Mono’,monospace;font-size:13px;font-variant-numeric:tabular-nums}
-.rule-fig b{font-weight:600}
-.rule-fig span{color:var(–dim)}
-.track{height:3px;background:var(–rule);position:relative;overflow:visible}
-.fill{height:3px;background:var(–ink);transition:width .35s cubic-bezier(.2,.7,.3,1);max-width:100%}
-.fill.over{background:var(–mark)}
-.tick{position:absolute;top:-4px;width:1.5px;height:11px;background:var(–ink);opacity:.5}
+.rule-name{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.rule-fig{font-family:'IBM Plex Mono',monospace;font-size:13px;font-variant-numeric:tabular-nums}
+.rule-fig b{font-weight:600}.rule-fig span{color:var(--dim)}
+.track{height:3px;background:var(--rule);position:relative;overflow:visible}
+.fill{height:3px;background:var(--ink);transition:width .35s cubic-bezier(.2,.7,.3,1);max-width:100%}
+.fill.over{background:var(--mark)}
+.tick{position:absolute;top:-4px;width:1.5px;height:11px;background:var(--ink);opacity:.5}
 
-/* ––––– kcal headline ––––– */
 .kcal{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2px}
-.kcal .big{
-font-family:‘IBM Plex Mono’,monospace;font-size:46px;font-weight:500;line-height:.9;
-font-variant-numeric:tabular-nums;letter-spacing:-.03em;
-}
-.kcal .big.over{color:var(–mark)}
-.kcal .rem{text-align:right;font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–dim);letter-spacing:.06em;line-height:1.5}
-.kcal .rem b{display:block;font-size:15px;color:var(–ink);font-weight:500;font-variant-numeric:tabular-nums}
+.kcal .big{font-family:'IBM Plex Mono',monospace;font-size:46px;font-weight:500;line-height:.9;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.kcal .big.over{color:var(--mark)}
+.kcal .rem{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);letter-spacing:.06em;line-height:1.5}
+.kcal .rem b{display:block;font-size:15px;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
 
-/* ––––– entries ––––– */
-.entry{
-display:flex;justify-content:space-between;align-items:baseline;gap:12px;
-padding:10px 0;border-bottom:1px dotted var(–rule);
-}
+.entry{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px dotted var(--rule)}
 .entry:last-child{border-bottom:none}
 .entry-l{min-width:0;flex:1}
 .entry-n{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.entry-s{font-family:‘IBM Plex Mono’,monospace;font-size:10.5px;color:var(–dim);letter-spacing:.05em;margin-top:2px}
+.entry-s{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--dim);letter-spacing:.05em;margin-top:2px}
 .entry-r{display:flex;align-items:baseline;gap:10px;flex-shrink:0}
-.entry-k{font-family:‘IBM Plex Mono’,monospace;font-size:14px;font-variant-numeric:tabular-nums}
-.del{background:none;border:none;color:var(–rule);font-size:17px;padding:0 0 0 2px;cursor:pointer;line-height:1}
-.empty{
-font-style:italic;color:var(–dim);font-size:14px;padding:14px 0;
-}
+.entry-k{font-family:'IBM Plex Mono',monospace;font-size:14px;font-variant-numeric:tabular-nums}
+.del{background:none;border:none;color:var(--rule);font-size:17px;padding:0 0 0 2px;cursor:pointer;line-height:1}
+.empty{font-style:italic;color:var(--dim);font-size:14px;padding:14px 0}
 
-/* ––––– weight ––––– */
 .wt{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px}
-.wt .now{font-family:‘IBM Plex Mono’,monospace;font-size:38px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.wt .unit{font-family:‘IBM Plex Mono’,monospace;font-size:13px;color:var(–dim);padding-bottom:4px}
-.wt .delta{font-family:‘IBM Plex Mono’,monospace;font-size:11.5px;padding-bottom:5px;line-height:1.4;color:var(–dim)}
+.wt .now{font-family:'IBM Plex Mono',monospace;font-size:38px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.wt .unit{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--dim);padding-bottom:4px}
+.wt .delta{font-family:'IBM Plex Mono',monospace;font-size:11.5px;padding-bottom:5px;line-height:1.4;color:var(--dim)}
 .wt .delta b{font-weight:500;font-variant-numeric:tabular-nums}
-.down{color:var(–good)}.up{color:var(–mark)}
+.down{color:var(--good)}.up{color:var(--mark)}
 #chart{width:100%;height:120px;display:block;margin-bottom:4px}
-.chartkey{font-family:‘IBM Plex Mono’,monospace;font-size:9.5px;color:var(–dim);letter-spacing:.1em;text-transform:uppercase;display:flex;gap:14px}
-.chartkey i{display:inline-block;width:14px;height:0;border-top:2px solid var(–ink);vertical-align:middle;margin-right:5px;font-style:normal}
-.chartkey i.avg{border-top:2px dashed var(–mark)}
+.chartkey{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;display:flex;gap:14px}
+.chartkey i{display:inline-block;width:14px;height:0;border-top:2px solid var(--ink);vertical-align:middle;margin-right:5px;font-style:normal}
+.chartkey i.avg{border-top:2px dashed var(--mark)}
 
-/* ––––– tabbar ––––– */
-nav{
-position:fixed;left:0;right:0;bottom:0;z-index:30;
-background:var(–paper);border-top:1.5px solid var(–ink);
-padding-bottom:var(–safe-b);display:flex;
-}
-nav button{
-flex:1;background:none;border:none;padding:15px 4px 13px;cursor:pointer;
-font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.16em;
-text-transform:uppercase;color:var(–dim);position:relative;
-}
-nav button.on{color:var(–ink)}
-nav button.on::after{content:’’;position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:2.5px;background:var(–mark)}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--paper);border-top:1.5px solid var(--ink);padding-bottom:var(--safe-b);display:flex}
+nav button{flex:1;background:none;border:none;padding:15px 4px 13px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);position:relative}
+nav button.on{color:var(--ink)}
+nav button.on::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:2.5px;background:var(--mark)}
 
-/* ––––– floating add ––––– */
-.fab{
-position:fixed;right:18px;bottom:calc(78px + var(–safe-b));z-index:25;
-width:54px;height:54px;border-radius:50%;border:1.5px solid var(–ink);
-background:var(–ink);color:var(–paper);font-size:26px;line-height:1;
-cursor:pointer;box-shadow:0 3px 14px rgba(18,16,14,.28);
-font-family:‘IBM Plex Mono’,monospace;padding-bottom:3px;
-}
+.fab{position:fixed;right:18px;bottom:calc(78px + var(--safe-b));z-index:25;width:54px;height:54px;border-radius:50%;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 3px 14px rgba(18,16,14,.28);font-family:'IBM Plex Mono',monospace;padding-bottom:3px}
 
-/* ––––– sheet ––––– */
 .scrim{position:fixed;inset:0;background:rgba(18,16,14,.42);z-index:40;opacity:0;pointer-events:none;transition:opacity .22s}
 .scrim.on{opacity:1;pointer-events:auto}
-.sheet{
-position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(–paper);
-border-top:1.5px solid var(–ink);border-radius:var(–r) var(–r) 0 0;
-transform:translateY(101%);transition:transform .28s cubic-bezier(.2,.8,.25,1);
-max-height:92vh;display:flex;flex-direction:column;
-padding-bottom:var(–safe-b);
-}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--paper);border-top:1.5px solid var(--ink);border-radius:var(--r) var(--r) 0 0;transform:translateY(101%);transition:transform .28s cubic-bezier(.2,.8,.25,1);max-height:92vh;display:flex;flex-direction:column;padding-bottom:var(--safe-b)}
 .sheet.on{transform:translateY(0)}
-.sheet-h{
-padding:16px 18px 12px;border-bottom:1px solid var(–rule);
-display:flex;justify-content:space-between;align-items:center;flex-shrink:0;
-}
-.sheet-h h2{margin:0;font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
-.sheet-h button{background:none;border:none;font-size:22px;color:var(–dim);cursor:pointer;line-height:1;padding:0 2px}
+.sheet-h{padding:16px 18px 12px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sheet-h h2{margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.sheet-h button{background:none;border:none;font-size:22px;color:var(--dim);cursor:pointer;line-height:1;padding:0 2px}
 .sheet-b{padding:16px 18px 22px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
-/* ––––– forms ––––– */
-label{display:block;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(–dim);margin:0 0 6px}
-input{
-width:100%;padding:11px 12px;border:1.5px solid var(–rule);background:transparent;
-border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:16px;color:var(–ink);
--webkit-appearance:none;
-}
-input:focus{outline:none;border-color:var(–ink)}
+label{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0 0 6px}
+input{width:100%;padding:11px 12px;border:1.5px solid var(--rule);background:transparent;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--ink);-webkit-appearance:none}
+input:focus{outline:none;border-color:var(--ink)}
+textarea{width:100%;padding:11px 12px;border:1.5px solid var(--rule);background:transparent;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink);min-height:80px;resize:vertical}
+textarea:focus{outline:none;border-color:var(--ink)}
 .field{margin-bottom:14px}
 .grid4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn{
-width:100%;padding:14px;border:1.5px solid var(–ink);background:var(–ink);color:var(–paper);
-border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:12px;letter-spacing:.14em;
-text-transform:uppercase;cursor:pointer;font-weight:500;
-}
-.btn.ghost{background:transparent;color:var(–ink)}
+.btn{width:100%;padding:14px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-weight:500}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.danger{background:transparent;color:var(--mark);border-color:var(--mark)}
 .btn+.btn{margin-top:9px}
-.hint{font-family:‘IBM Plex Mono’,monospace;font-size:10.5px;color:var(–dim);margin:8px 0 0;line-height:1.6}
+.btn:disabled{opacity:.4}
+.hint{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--dim);margin:8px 0 0;line-height:1.6}
 
-/* ––––– library picker ––––– */
 .search{margin-bottom:12px;display:flex;gap:8px}
 .search input{flex:1}
-.scanbtn{
-flex-shrink:0;width:48px;border:1.5px solid var(–ink);background:transparent;border-radius:var(–r);
-font-size:19px;cursor:pointer;color:var(–ink);padding:0;
-}
-.pick{
-display:flex;justify-content:space-between;align-items:baseline;gap:10px;
-padding:12px 0;border-bottom:1px dotted var(–rule);cursor:pointer;
-}
+.scanbtn{flex-shrink:0;width:48px;border:1.5px solid var(--ink);background:transparent;border-radius:var(--r);font-size:19px;cursor:pointer;color:var(--ink);padding:0}
+.pick{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px dotted var(--rule);cursor:pointer}
 .pick-n{font-size:15px}
-.pick-s{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–dim);letter-spacing:.05em;margin-top:2px}
-.pick-k{font-family:‘IBM Plex Mono’,monospace;font-size:12px;color:var(–dim);flex-shrink:0;font-variant-numeric:tabular-nums}
+.pick-s{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:.05em;margin-top:2px}
+.pick-k{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--dim);flex-shrink:0;font-variant-numeric:tabular-nums}
 
-/* ––––– portion ––––– */
 .portion{text-align:center;padding:8px 0 4px}
-.portion input{
-font-size:40px;text-align:center;border:none;border-bottom:1.5px solid var(–ink);
-border-radius:0;padding:6px 0;font-weight:500;letter-spacing:-.02em;
-}
+.portion input{font-size:40px;text-align:center;border:none;border-bottom:1.5px solid var(--ink);border-radius:0;padding:6px 0;font-weight:500;letter-spacing:-.02em}
 .chips{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:14px 0 18px}
-.chip{
-padding:7px 13px;border:1.5px solid var(–rule);border-radius:var(–r);background:transparent;
-font-family:‘IBM Plex Mono’,monospace;font-size:11.5px;cursor:pointer;color:var(–ink);
-}
-.preview{
-display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(–rule);
-border:1px solid var(–rule);border-radius:var(–r);overflow:hidden;margin-bottom:18px;
-}
-.preview div{background:var(–paper);padding:11px 4px;text-align:center}
-.preview span{display:block;font-family:‘IBM Plex Mono’,monospace;font-size:9px;letter-spacing:.12em;color:var(–dim);text-transform:uppercase}
-.preview b{display:block;font-family:‘IBM Plex Mono’,monospace;font-size:16px;font-weight:500;margin-top:3px;font-variant-numeric:tabular-nums}
+.chip{padding:7px 13px;border:1.5px solid var(--rule);border-radius:var(--r);background:transparent;font-family:'IBM Plex Mono',monospace;font-size:11.5px;cursor:pointer;color:var(--ink)}
+.preview{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
+.preview div{background:var(--paper);padding:11px 4px;text-align:center}
+.preview span{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.preview b{display:block;font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:500;margin-top:3px;font-variant-numeric:tabular-nums}
 
-/* ––––– scanner ––––– */
 #scanwrap{position:fixed;inset:0;z-index:60;background:#000;display:none}
 #scanwrap.on{display:block}
 #cam{width:100%;height:100%;object-fit:cover}
-.scanui{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:calc(20px + var(–safe-t)) 20px calc(30px + var(–safe-b))}
-.scanbox{width:78%;max-width:300px;height:150px;border:2px solid rgba(237,231,220,.85);border-radius:var(–r);align-self:center}
-.scanmsg{color:#EDE7DC;font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.1em;text-align:center;text-transform:uppercase}
-.scanclose{
-background:rgba(237,231,220,.14);border:1.5px solid rgba(237,231,220,.6);color:#EDE7DC;
-padding:12px 26px;border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;
-font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
-}
+.scanui{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:calc(20px + var(--safe-t)) 20px calc(30px + var(--safe-b))}
+.scanbox{width:78%;max-width:300px;height:150px;border:2px solid rgba(237,231,220,.85);border-radius:var(--r);align-self:center}
+.scanmsg{color:#EDE7DC;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-align:center;text-transform:uppercase}
+.scanclose{background:rgba(237,231,220,.14);border:1.5px solid rgba(237,231,220,.6);color:#EDE7DC;padding:12px 26px;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
 
-.toast{
-position:fixed;left:50%;transform:translateX(-50%) translateY(20px);
-bottom:calc(90px + var(–safe-b));background:var(–ink);color:var(–paper);
-padding:11px 20px;border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;
-font-size:11px;letter-spacing:.08em;z-index:70;opacity:0;transition:all .25s;pointer-events:none;
-max-width:86vw;text-align:center;
-}
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(90px + var(--safe-b));background:var(--ink);color:var(--paper);padding:11px 20px;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;z-index:70;opacity:0;transition:all .25s;pointer-events:none;max-width:86vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .hide{display:none!important}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-</style>
 
+/* ---------- connect gate ---------- */
+#gate{position:fixed;inset:0;z-index:80;background:var(--paper);overflow-y:auto;padding:calc(40px + var(--safe-t)) 22px calc(40px + var(--safe-b));display:none}
+#gate.on{display:block}
+#gate h1{font-family:'IBM Plex Mono',monospace;font-size:16px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px}
+#gate .lede{font-size:15px;color:var(--dim);margin:0 0 26px;line-height:1.5}
+#gate .step{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mark);margin:0 0 14px}
+.profcard{display:flex;justify-content:space-between;align-items:center;padding:15px 16px;border:1.5px solid var(--rule);border-radius:var(--r);margin-bottom:10px;cursor:pointer}
+.profcard b{font-size:16px;font-family:'Bitter',serif;font-weight:600}
+.profcard span{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim)}
+.or{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:20px 0}
+</style>
 </head>
 <body>
 
-<div id="app">
-  <header>
+<!-- ============ CONNECT GATE ============ -->
+<div id="gate">
+  <div id="gate-connect">
     <h1>Ledger</h1>
+    <p class="lede">First, connect this phone to your shared space. You only do this once.</p>
+    <p class="step">Paste a connection code</p>
+    <div class="field">
+      <label>Connection code</label>
+      <textarea id="gCode" placeholder="Paste the code from the other phone here"></textarea>
+      <p class="hint">The first person leaves this blank and fills in the two fields below instead. The second person just pastes the code and taps Connect.</p>
+    </div>
+    <button class="btn" id="gCodeBtn">Use pasted code</button>
+    <div class="or">— or enter manually —</div>
+    <div class="field"><label>Project URL</label><input id="gUrl" placeholder="https://xxxx.supabase.co" autocomplete="off" autocapitalize="off"></div>
+    <div class="field"><label>Anon public key</label><input id="gKey" placeholder="eyJhbGci..." autocomplete="off" autocapitalize="off"></div>
+    <button class="btn" id="gConnect">Connect</button>
+    <p class="hint" id="gErr" style="color:var(--mark)"></p>
+  </div>
+
+  <div id="gate-who" class="hide">
+    <h1>Who are you?</h1>
+    <p class="lede">Pick your profile, or create one. Each person tracks separately; the food library is shared.</p>
+    <div id="profList"></div>
+    <div class="or">— new person —</div>
+    <div class="field"><label>Your name</label><input id="gName" placeholder="e.g. Kostya" autocomplete="off"></div>
+    <button class="btn" id="gCreate">Create my profile</button>
+    <button class="btn ghost" id="gBack" style="margin-top:14px">Back</button>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" class="hide">
+  <header>
+    <div class="brand">
+      <span class="dot" id="statusDot"></span>
+      <h1>Ledger</h1>
+      <span class="who" id="whoLabel"></span>
+    </div>
     <div class="datenav">
       <button id="prev">&larr;</button>
       <div class="datelabel mono" id="datelabel"></div>
@@ -258,111 +200,80 @@ max-width:86vw;text-align:center;
   </header>
 
   <main>
-    <!-- ===== TODAY ===== -->
     <div id="v-today">
       <section>
         <div class="kcal">
           <div class="big mono" id="kcalNow">0</div>
-          <div class="rem">
-            <span id="kcalWord">remaining</span>
-            <b id="kcalRem">0</b>
-          </div>
+          <div class="rem"><span id="kcalWord">remaining</span><b id="kcalRem">0</b></div>
         </div>
-        <div class="track" style="margin-top:12px">
-          <div class="fill" id="kcalFill" style="width:0%"></div>
-        </div>
+        <div class="track" style="margin-top:12px"><div class="fill" id="kcalFill" style="width:0%"></div></div>
       </section>
-
-```
-  <section>
-    <p class="eyebrow">Macros</p>
-    <div class="rules" id="macroRules"></div>
-  </section>
-
-  <section>
-    <p class="eyebrow">
-      <span>Entries &mdash; <span id="entryCount">0</span></span>
-      <button id="clearDay">clear day</button>
-    </p>
-    <div id="entries"></div>
-  </section>
-</div>
-
-<!-- ===== WEIGHT ===== -->
-<div id="v-weight" class="hide">
-  <section>
-    <p class="eyebrow">Weight</p>
-    <div class="wt">
-      <div class="now mono" id="wNow">&mdash;</div>
-      <div class="unit mono">kg</div>
-      <div class="delta mono" id="wDelta"></div>
+      <section>
+        <p class="eyebrow">Macros</p>
+        <div class="rules" id="macroRules"></div>
+      </section>
+      <section>
+        <p class="eyebrow"><span>Entries &mdash; <span id="entryCount">0</span></span><button id="clearDay">clear day</button></p>
+        <div id="entries"></div>
+      </section>
     </div>
-    <canvas id="chart"></canvas>
-    <div class="chartkey">
-      <span><i></i>daily</span>
-      <span><i class="avg"></i>7&#8209;day average</span>
-    </div>
-  </section>
-  <section>
-    <p class="eyebrow">Log for <span id="wDateLabel"></span></p>
-    <div class="field">
-      <input type="number" inputmode="decimal" step="0.1" id="wInput" placeholder="0.0">
-    </div>
-    <button class="btn" id="wSave">Save weight</button>
-  </section>
-  <section>
-    <p class="eyebrow">History</p>
-    <div id="wHistory"></div>
-  </section>
-</div>
 
-<!-- ===== FOODS ===== -->
-<div id="v-foods" class="hide">
-  <section>
-    <p class="eyebrow">
-      <span>Library &mdash; <span id="libCount">0</span></span>
-      <button id="addFoodBtn">+ new food</button>
-    </p>
-    <div class="search">
-      <input id="libSearch" placeholder="Search" autocomplete="off">
-      <button class="scanbtn" id="libScan">&#9707;</button>
+    <div id="v-weight" class="hide">
+      <section>
+        <p class="eyebrow">Weight</p>
+        <div class="wt"><div class="now mono" id="wNow">&mdash;</div><div class="unit mono">kg</div><div class="delta mono" id="wDelta"></div></div>
+        <canvas id="chart"></canvas>
+        <div class="chartkey"><span><i></i>daily</span><span><i class="avg"></i>7&#8209;day average</span></div>
+      </section>
+      <section>
+        <p class="eyebrow">Log for <span id="wDateLabel"></span></p>
+        <div class="field"><input type="number" inputmode="decimal" step="0.1" id="wInput" placeholder="0.0"></div>
+        <button class="btn" id="wSave">Save weight</button>
+      </section>
+      <section><p class="eyebrow">History</p><div id="wHistory"></div></section>
     </div>
-    <div id="libList"></div>
-  </section>
-</div>
 
-<!-- ===== SETTINGS ===== -->
-<div id="v-set" class="hide">
-  <section>
-    <p class="eyebrow">Daily targets</p>
-    <div class="field">
-      <label>Calories &mdash; kcal</label>
-      <input type="number" inputmode="numeric" id="tKcal">
+    <div id="v-foods" class="hide">
+      <section>
+        <p class="eyebrow"><span>Shared library &mdash; <span id="libCount">0</span></span><button id="addFoodBtn">+ new food</button></p>
+        <div class="search"><input id="libSearch" placeholder="Search" autocomplete="off"><button class="scanbtn" id="libScan">&#9707;</button></div>
+        <div id="libList"></div>
+      </section>
     </div>
-    <div class="grid4">
-      <div class="field"><label>Protein g</label><input type="number" inputmode="numeric" id="tP"></div>
-      <div class="field"><label>Carbs g</label><input type="number" inputmode="numeric" id="tC"></div>
-      <div class="field"><label>Fat g</label><input type="number" inputmode="numeric" id="tF"></div>
-      <div class="field"><label>Weight goal kg</label><input type="number" inputmode="decimal" step="0.1" id="tW"></div>
-    </div>
-    <button class="btn" id="saveTargets">Save targets</button>
-  </section>
-  <section>
-    <p class="eyebrow">Data</p>
-    <button class="btn ghost" id="exportBtn">Export backup</button>
-    <button class="btn ghost" id="importBtn">Import backup</button>
-    <input type="file" id="importFile" accept=".json" class="hide">
-    <p class="hint">Everything lives on this phone only. Clearing Safari website data erases it. Export now and then.</p>
-  </section>
-</div>
-```
 
+    <div id="v-set" class="hide">
+      <section>
+        <p class="eyebrow">Daily targets</p>
+        <div class="field"><label>Calories &mdash; kcal</label><input type="number" inputmode="numeric" id="tKcal"></div>
+        <div class="grid4">
+          <div class="field"><label>Protein g</label><input type="number" inputmode="numeric" id="tP"></div>
+          <div class="field"><label>Carbs g</label><input type="number" inputmode="numeric" id="tC"></div>
+          <div class="field"><label>Fat g</label><input type="number" inputmode="numeric" id="tF"></div>
+          <div class="field"><label>Weight goal kg</label><input type="number" inputmode="decimal" step="0.1" id="tW"></div>
+        </div>
+        <button class="btn" id="saveTargets">Save targets</button>
+      </section>
+      <section>
+        <p class="eyebrow">Shared space</p>
+        <p class="hint" style="margin-top:0">You are <b id="setWho" style="color:var(--ink)"></b>. Give the connection code below to the other person so they can join the same space.</p>
+        <button class="btn ghost" id="copyCode">Copy connection code</button>
+        <button class="btn ghost" id="switchPerson">Switch person</button>
+        <button class="btn danger" id="disconnect">Disconnect this phone</button>
+      </section>
+      <section>
+        <p class="eyebrow">Data</p>
+        <button class="btn ghost" id="exportBtn">Export backup</button>
+        <button class="btn ghost" id="importBtn">Import old app backup</button>
+        <input type="file" id="importFile" accept=".json" class="hide">
+        <p class="hint">Import pulls in data from the old local-only version and pushes it to the cloud under your profile. Foods go to the shared library.</p>
+      </section>
+    </div>
   </main>
 </div>
 
-<button class="fab" id="fab">+</button>
+<button class="fab hide" id="fab">+</button>
 
-<nav>
+<nav class="hide" id="tabbar">
   <button data-v="today" class="on">Today</button>
   <button data-v="weight">Weight</button>
   <button data-v="foods">Foods</button>
@@ -371,39 +282,28 @@ max-width:86vw;text-align:center;
 
 <div class="scrim" id="scrim"></div>
 
-<!-- pick food -->
-
 <div class="sheet" id="sheetPick">
   <div class="sheet-h"><h2>Add entry</h2><button class="close">&times;</button></div>
   <div class="sheet-b">
-    <div class="search">
-      <input id="pickSearch" placeholder="Search your foods" autocomplete="off">
-      <button class="scanbtn" id="pickScan">&#9707;</button>
-    </div>
+    <div class="search"><input id="pickSearch" placeholder="Search shared foods" autocomplete="off"><button class="scanbtn" id="pickScan">&#9707;</button></div>
     <div id="pickList"></div>
     <button class="btn ghost" id="pickNew" style="margin-top:14px">Create new food</button>
   </div>
 </div>
 
-<!-- portion -->
-
 <div class="sheet" id="sheetPortion">
   <div class="sheet-h"><h2 id="portionName">Portion</h2><button class="close">&times;</button></div>
   <div class="sheet-b">
     <div class="portion"><input type="number" inputmode="decimal" id="grams" value="100"></div>
-    <p style="text-align:center;margin:6px 0 0" class="hint" id="portionUnit">grams</p>
+    <p style="text-align:center;margin:6px 0 0" class="hint">grams</p>
     <div class="chips" id="chips"></div>
     <div class="preview">
-      <div><span>kcal</span><b id="pvK">0</b></div>
-      <div><span>prot</span><b id="pvP">0</b></div>
-      <div><span>carb</span><b id="pvC">0</b></div>
-      <div><span>fat</span><b id="pvF">0</b></div>
+      <div><span>kcal</span><b id="pvK">0</b></div><div><span>prot</span><b id="pvP">0</b></div>
+      <div><span>carb</span><b id="pvC">0</b></div><div><span>fat</span><b id="pvF">0</b></div>
     </div>
     <button class="btn" id="portionAdd">Add to today</button>
   </div>
 </div>
-
-<!-- food form -->
 
 <div class="sheet" id="sheetFood">
   <div class="sheet-h"><h2 id="foodTitle">New food</h2><button class="close">&times;</button></div>
@@ -418,12 +318,10 @@ max-width:86vw;text-align:center;
     </div>
     <p class="hint" style="margin:-6px 0 14px">Leave kcal blank to derive it from the macros.</p>
     <div class="field"><label>Barcode &mdash; optional</label><input id="fBar" inputmode="numeric" autocomplete="off"></div>
-    <button class="btn" id="foodSave">Save food</button>
+    <button class="btn" id="foodSave">Save to shared library</button>
     <button class="btn ghost hide" id="foodDelete">Delete food</button>
   </div>
 </div>
-
-<!-- scanner -->
 
 <div id="scanwrap">
   <video id="cam" playsinline muted></video>
@@ -439,40 +337,199 @@ max-width:86vw;text-align:center;
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
-const K='ledger.v1';
 
-/* ---------- state ---------- */
-const blank={foods:[],log:{},weights:{},targets:{kcal:2000,p:150,c:200,f:65,w:null}};
-let S;
-try{S=Object.assign({},blank,JSON.parse(localStorage.getItem(K)||'{}'));}
-catch(e){S=JSON.parse(JSON.stringify(blank));}
-S.targets=Object.assign({},blank.targets,S.targets||{});
-const save=()=>{try{localStorage.setItem(K,JSON.stringify(S));}catch(e){toast('Storage full');}};
+/* ================= config & cache ================= */
+const CFG_KEY='ledger.cfg';
+let CFG={};
+try{CFG=JSON.parse(localStorage.getItem(CFG_KEY)||'{}');}catch(e){CFG={};}
+const saveCfg=()=>localStorage.setItem(CFG_KEY,JSON.stringify(CFG));
 
+const dflT={kcal:2000,p:150,c:200,f:65,w:null};
+let S={foods:[],profiles:[],profile:null,entries:{},weights:{},usage:{},pending:[]};
+
+function cacheKey(){return 'ledger.cache.'+(CFG.pid||'x');}
+function saveCache(){try{localStorage.setItem(cacheKey(),JSON.stringify({foods:S.foods,profile:S.profile,entries:S.entries,weights:S.weights,usage:S.usage,pending:S.pending}));}catch(e){}}
+function loadCache(){try{const c=JSON.parse(localStorage.getItem(cacheKey())||'null');if(c){S.foods=c.foods||[];S.profile=c.profile||null;S.entries=c.entries||{};S.weights=c.weights||{};S.usage=c.usage||{};S.pending=c.pending||[];}}catch(e){}}
+
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const iso=d=>{const t=new Date(d);t.setMinutes(t.getMinutes()-t.getTimezoneOffset());return t.toISOString().slice(0,10);};
 const today=()=>iso(new Date());
+const daysAgo=n=>{const d=new Date();d.setDate(d.getDate()-n);return iso(d);};
 let day=today();
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const r0=n=>Math.round(n);
-const r1=n=>Math.round(n*10)/10;
+const r0=n=>Math.round(n),r1=n=>Math.round(n*10)/10;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const kcalOf=f=>f.k!=null?f.k:(f.p*4+f.c*4+f.f*9);
 
 let toastT;
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2100);}
+function setStatus(s){const d=$('statusDot');d.className='dot'+(s==='sync'?' sync':s==='off'?' off':'');}
 
-/* ---------- sheets ---------- */
+/* ================= REST layer ================= */
+async function api(method,path,body,headers){
+  const res=await fetch(CFG.url+'/rest/v1/'+path,{
+    method,
+    headers:Object.assign({apikey:CFG.key,Authorization:'Bearer '+CFG.key,'Content-Type':'application/json'},headers||{}),
+    body:body?JSON.stringify(body):undefined
+  });
+  if(!res.ok)throw new Error(res.status+' '+await res.text());
+  const t=await res.text();return t?JSON.parse(t):null;
+}
+const UP={Prefer:'resolution=merge-duplicates,return=minimal'};
+const MIN={Prefer:'return=minimal'};
+
+/* ================= sync (pending + flush + pull) ================= */
+async function send(op){
+  if(op.k==='food')   return api('POST','foods?on_conflict=id',[op.v],UP);
+  if(op.k==='del-food')return api('DELETE','foods?id=eq.'+encodeURIComponent(op.v),null,MIN);
+  if(op.k==='entry')  return api('POST','entries?on_conflict=id',[op.v],UP);
+  if(op.k==='del-entry')return api('DELETE','entries?id=eq.'+encodeURIComponent(op.v),null,MIN);
+  if(op.k==='weight') return api('POST','weights?on_conflict=profile,day',[op.v],UP);
+  if(op.k==='del-weight')return api('DELETE','weights?profile=eq.'+encodeURIComponent(op.v.profile)+'&day=eq.'+op.v.day,null,MIN);
+  if(op.k==='profile')return api('POST','profiles?on_conflict=id',[op.v],UP);
+}
+let flushing=false;
+async function flush(){
+  if(flushing)return false;
+  if(!S.pending.length)return true;
+  flushing=true;setStatus('sync');
+  try{
+    while(S.pending.length){
+      await send(S.pending[0]);
+      S.pending.shift();saveCache();
+    }
+    setStatus('ok');return true;
+  }catch(e){setStatus('off');return false;}
+  finally{flushing=false;}
+}
+function queue(op){S.pending.push(op);saveCache();flush();}
+
+const nF=f=>({id:f.id,name:f.name,p:+f.p||0,c:+f.c||0,f:+f.f||0,k:f.k==null?null:+f.k,bar:f.bar||null});
+const nE=e=>({id:e.id,profile:e.profile,day:e.day,name:e.name,g:+e.g||0,k:+e.k||0,p:+e.p||0,c:+e.c||0,f:+e.f||0});
+
+async function pull(){
+  if(!CFG.url||!CFG.pid)return;
+  const ok=await flush();
+  if(!ok)return; // offline: keep cache
+  setStatus('sync');
+  try{
+    const since=daysAgo(400);
+    const [foods,profs,ents,wts]=await Promise.all([
+      api('GET','foods?select=*'),
+      api('GET','profiles?select=*'),
+      api('GET','entries?profile=eq.'+encodeURIComponent(CFG.pid)+'&day=gte.'+since+'&select=*'),
+      api('GET','weights?profile=eq.'+encodeURIComponent(CFG.pid)+'&select=*')
+    ]);
+    S.foods=(foods||[]).map(nF);
+    S.profiles=profs||[];
+    const me=(profs||[]).find(p=>p.id===CFG.pid);
+    if(me)S.profile={id:me.id,name:me.name,kcal:+me.kcal,p:+me.p,c:+me.c,f:+me.f,w:me.w==null?null:+me.w};
+    S.entries={};(ents||[]).forEach(e=>{const n=nE(e);(S.entries[n.day]=S.entries[n.day]||[]).push(n);});
+    S.weights={};(wts||[]).forEach(w=>{S.weights[w.day]=+w.w;});
+    saveCache();setStatus('ok');render();
+  }catch(e){setStatus('off');}
+}
+
+/* ================= mutations ================= */
+function targets(){return S.profile||dflT;}
+
+function upsertFood(rec){
+  const i=S.foods.findIndex(f=>f.id===rec.id);
+  if(i>=0)S.foods[i]=rec;else S.foods.push(rec);
+  saveCache();
+  queue({k:'food',v:Object.assign({},rec,{updated_at:new Date().toISOString()})});
+}
+function deleteFood(id){
+  S.foods=S.foods.filter(f=>f.id!==id);saveCache();
+  queue({k:'del-food',v:id});
+}
+function addEntry(rec){
+  (S.entries[rec.day]=S.entries[rec.day]||[]).push(rec);
+  S.usage[rec.food]=(S.usage[rec.food]||0)+1;saveCache();
+  queue({k:'entry',v:{id:rec.id,profile:CFG.pid,day:rec.day,name:rec.name,g:rec.g,k:rec.k,p:rec.p,c:rec.c,f:rec.f}});
+}
+function deleteEntry(dayk,id){
+  S.entries[dayk]=(S.entries[dayk]||[]).filter(e=>e.id!==id);
+  if(!S.entries[dayk].length)delete S.entries[dayk];
+  saveCache();queue({k:'del-entry',v:id});
+}
+function setWeight(dayk,w){
+  S.weights[dayk]=w;saveCache();
+  queue({k:'weight',v:{profile:CFG.pid,day:dayk,w}});
+}
+function deleteWeight(dayk){
+  delete S.weights[dayk];saveCache();
+  queue({k:'del-weight',v:{profile:CFG.pid,day:dayk}});
+}
+function saveTargets(t){
+  S.profile=Object.assign({},S.profile,t);saveCache();
+  queue({k:'profile',v:{id:CFG.pid,name:S.profile.name,kcal:t.kcal,p:t.p,c:t.c,f:t.f,w:t.w}});
+}
+
+/* ================= gate / onboarding ================= */
+function showGate(stage){
+  $('gate').classList.add('on');$('app').classList.add('hide');$('tabbar').classList.add('hide');$('fab').classList.add('hide');
+  $('gate-connect').classList.toggle('hide',stage!=='connect');
+  $('gate-who').classList.toggle('hide',stage!=='who');
+}
+function hideGate(){$('gate').classList.remove('on');$('app').classList.remove('hide');$('tabbar').classList.remove('hide');}
+
+$('gCodeBtn').onclick=()=>{
+  try{
+    const c=JSON.parse(atob($('gCode').value.trim()));
+    if(!c.url||!c.key)throw 0;
+    $('gUrl').value=c.url;$('gKey').value=c.key;
+    $('gConnect').click();
+  }catch(e){$('gErr').textContent='That code doesn’t look right. Check you copied all of it.';}
+};
+$('gConnect').onclick=async()=>{
+  const url=$('gUrl').value.trim().replace(/\/+$/,'');
+  const key=$('gKey').value.trim();
+  if(!/^https:\/\/.+\.supabase\.co$/.test(url)){$('gErr').textContent='URL should look like https://xxxx.supabase.co';return;}
+  if(key.length<30){$('gErr').textContent='That key looks too short.';return;}
+  $('gErr').textContent='Checking…';$('gConnect').disabled=true;
+  CFG.url=url;CFG.key=key;
+  try{
+    const profs=await api('GET','profiles?select=*');
+    S.profiles=profs||[];saveCfg();
+    $('gErr').textContent='';renderProfiles();showGate('who');
+  }catch(e){
+    $('gErr').textContent='Couldn’t connect. Check the URL/key and that you ran the setup SQL.';
+    CFG.url='';CFG.key='';
+  }
+  $('gConnect').disabled=false;
+};
+function renderProfiles(){
+  const l=$('profList');
+  l.innerHTML=(S.profiles||[]).map(p=>`<div class="profcard" data-pid="${esc(p.id)}"><b>${esc(p.name)}</b><span>tap to use</span></div>`).join('')||'<p class="hint" style="margin:0 0 4px">No profiles yet — create the first one below.</p>';
+  l.querySelectorAll('[data-pid]').forEach(el=>el.onclick=()=>joinProfile(el.dataset.pid));
+}
+function joinProfile(pid){
+  CFG.pid=pid;saveCfg();loadCache();hideGate();boot();
+}
+$('gCreate').onclick=async()=>{
+  const name=$('gName').value.trim();
+  if(!name){toast('Enter a name');return;}
+  const pid=uid();
+  const rec={id:pid,name,kcal:2000,p:150,c:200,f:65,w:null};
+  $('gCreate').disabled=true;
+  try{
+    await api('POST','profiles?on_conflict=id',[rec],UP);
+    CFG.pid=pid;saveCfg();
+    S.profiles.push(rec);S.profile=rec;saveCache();
+    hideGate();boot();
+  }catch(e){toast('Couldn’t create — check connection');}
+  $('gCreate').disabled=false;
+};
+$('gBack').onclick=()=>{CFG.url='';CFG.key='';showGate('connect');};
+
+/* ================= sheets ================= */
 let openSheet=null;
-function sheet(id){
-  if(openSheet)openSheet.classList.remove('on');
-  openSheet=$(id);openSheet.classList.add('on');$('scrim').classList.add('on');
-}
-function closeSheet(){
-  if(openSheet)openSheet.classList.remove('on');
-  openSheet=null;$('scrim').classList.remove('on');
-}
+function sheet(id){if(openSheet)openSheet.classList.remove('on');openSheet=$(id);openSheet.classList.add('on');$('scrim').classList.add('on');}
+function closeSheet(){if(openSheet)openSheet.classList.remove('on');openSheet=null;$('scrim').classList.remove('on');}
 $('scrim').onclick=closeSheet;
 document.querySelectorAll('.sheet .close').forEach(b=>b.onclick=closeSheet);
 
-/* ---------- nav ---------- */
+/* ================= nav ================= */
 let view='today';
 document.querySelectorAll('nav button').forEach(b=>{
   b.onclick=()=>{
@@ -481,213 +538,91 @@ document.querySelectorAll('nav button').forEach(b=>{
     ['today','weight','foods','set'].forEach(v=>$('v-'+v).classList.toggle('hide',v!==view));
     $('fab').style.display=(view==='today')?'block':'none';
     render();
+    if(view==='foods')pull();
   };
 });
+function shift(n){const d=new Date(day+'T12:00:00');d.setDate(d.getDate()+n);const s=iso(d);if(s>today())return;day=s;render();}
+$('prev').onclick=()=>shift(-1);$('next').onclick=()=>shift(1);
+function dateLabel(){if(day===today())return 'Today';const d=new Date(day+'T12:00:00'),y=new Date();y.setDate(y.getDate()-1);if(day===iso(y))return 'Yesterday';return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});}
 
-/* ---------- date ---------- */
-function shift(n){
-  const d=new Date(day+'T12:00:00');d.setDate(d.getDate()+n);
-  const s=iso(d);if(s>today())return;
-  day=s;render();
-}
-$('prev').onclick=()=>shift(-1);
-$('next').onclick=()=>shift(1);
-
-function dateLabel(){
-  if(day===today())return 'Today';
-  const d=new Date(day+'T12:00:00'),y=new Date();y.setDate(y.getDate()-1);
-  if(day===iso(y))return 'Yesterday';
-  return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-}
-
-/* ---------- macro math ---------- */
-const kcalOf=f=>f.k!=null?f.k:(f.p*4+f.c*4+f.f*9);
-function totals(){
-  const rows=S.log[day]||[];
-  return rows.reduce((a,e)=>{
-    a.k+=e.k;a.p+=e.p;a.c+=e.c;a.f+=e.f;return a;
-  },{k:0,p:0,c:0,f:0});
-}
-
-/* ---------- render: today ---------- */
+/* ================= today ================= */
+function totals(){return (S.entries[day]||[]).reduce((a,e)=>{a.k+=e.k;a.p+=e.p;a.c+=e.c;a.f+=e.f;return a;},{k:0,p:0,c:0,f:0});}
 function renderToday(){
-  const t=totals(),g=S.targets;
-  const over=t.k>g.kcal;
-  $('kcalNow').textContent=r0(t.k);
-  $('kcalNow').classList.toggle('over',over);
+  const t=totals(),g=targets(),over=t.k>g.kcal;
+  $('kcalNow').textContent=r0(t.k);$('kcalNow').classList.toggle('over',over);
   $('kcalRem').textContent=r0(Math.abs(g.kcal-t.k));
   $('kcalWord').textContent=over?'over by':'remaining';
   $('kcalFill').style.width=Math.min(100,g.kcal?t.k/g.kcal*100:0)+'%';
   $('kcalFill').classList.toggle('over',over);
-
-  $('macroRules').innerHTML=[
-    ['Protein',t.p,g.p],['Carbs',t.c,g.c],['Fat',t.f,g.f]
-  ].map(([n,v,gt])=>{
+  $('macroRules').innerHTML=[['Protein',t.p,g.p],['Carbs',t.c,g.c],['Fat',t.f,g.f]].map(([n,v,gt])=>{
     const pct=gt?v/gt*100:0;
-    return `<div class="rule-row">
-      <div class="rule-head">
-        <span class="rule-name">${n}</span>
-        <span class="rule-fig"><b>${r0(v)}</b><span> / ${gt} g</span></span>
-      </div>
-      <div class="track"><div class="fill${pct>100?' over':''}" style="width:${Math.min(100,pct)}%"></div><div class="tick" style="left:100%"></div></div>
-    </div>`;
+    return `<div class="rule-row"><div class="rule-head"><span class="rule-name">${n}</span><span class="rule-fig"><b>${r0(v)}</b><span> / ${gt} g</span></span></div><div class="track"><div class="fill${pct>100?' over':''}" style="width:${Math.min(100,pct)}%"></div><div class="tick" style="left:100%"></div></div></div>`;
   }).join('');
-
-  const rows=S.log[day]||[];
+  const rows=S.entries[day]||[];
   $('entryCount').textContent=rows.length;
   $('clearDay').style.visibility=rows.length?'visible':'hidden';
-  $('entries').innerHTML=rows.length?rows.map(e=>`
-    <div class="entry">
-      <div class="entry-l">
-        <div class="entry-n">${esc(e.name)}</div>
-        <div class="entry-s">${r0(e.g)} g &nbsp;&middot;&nbsp; P ${r1(e.p)} &nbsp; C ${r1(e.c)} &nbsp; F ${r1(e.f)}</div>
-      </div>
-      <div class="entry-r">
-        <span class="entry-k">${r0(e.k)}</span>
-        <button class="del" data-del="${e.id}">&times;</button>
-      </div>
-    </div>`).join(''):`<p class="empty">Nothing logged ${day===today()?'yet today':'this day'}. Tap + to add something.</p>`;
-
-  $('entries').querySelectorAll('[data-del]').forEach(b=>{
-    b.onclick=()=>{
-      S.log[day]=(S.log[day]||[]).filter(x=>x.id!==b.dataset.del);
-      if(!S.log[day].length)delete S.log[day];
-      save();renderToday();
-    };
-  });
+  $('entries').innerHTML=rows.length?rows.map(e=>`<div class="entry"><div class="entry-l"><div class="entry-n">${esc(e.name)}</div><div class="entry-s">${r0(e.g)} g &nbsp;&middot;&nbsp; P ${r1(e.p)} &nbsp; C ${r1(e.c)} &nbsp; F ${r1(e.f)}</div></div><div class="entry-r"><span class="entry-k">${r0(e.k)}</span><button class="del" data-del="${e.id}">&times;</button></div></div>`).join(''):`<p class="empty">Nothing logged ${day===today()?'yet today':'this day'}. Tap + to add something.</p>`;
+  $('entries').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{deleteEntry(day,b.dataset.del);renderToday();});
 }
-$('clearDay').onclick=()=>{
-  if(!(S.log[day]||[]).length)return;
-  if(confirm('Remove every entry for '+dateLabel().toLowerCase()+'?')){delete S.log[day];save();renderToday();}
-};
+$('clearDay').onclick=()=>{if(!(S.entries[day]||[]).length)return;if(confirm('Remove every entry for '+dateLabel().toLowerCase()+'?')){(S.entries[day]||[]).slice().forEach(e=>deleteEntry(day,e.id));renderToday();}};
 
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-
-/* ---------- render: weight ---------- */
-function weightSeries(){
-  return Object.keys(S.weights).sort().map(d=>({d,w:S.weights[d]}));
-}
+/* ================= weight ================= */
+function wSeries(){return Object.keys(S.weights).sort().map(d=>({d,w:S.weights[d]}));}
 function renderWeight(){
-  const s=weightSeries();
+  const s=wSeries();
   $('wDateLabel').textContent=dateLabel().toLowerCase();
   $('wInput').value=S.weights[day]!=null?S.weights[day]:'';
-
-  if(!s.length){
-    $('wNow').textContent='—';$('wDelta').innerHTML='';
-    $('wHistory').innerHTML='<p class="empty">No weigh-ins yet.</p>';
-    drawChart([]);return;
-  }
-  const last=s[s.length-1];
+  if(!s.length){$('wNow').textContent='—';$('wDelta').innerHTML='';$('wHistory').innerHTML='<p class="empty">No weigh-ins yet.</p>';drawChart([]);return;}
+  const last=s[s.length-1],first=s[0];
   $('wNow').textContent=r1(last.w).toFixed(1);
-
   let html='';
-  const first=s[0];
-  const totalD=last.w-first.w;
-  if(s.length>1){
-    const cls=totalD<0?'down':(totalD>0?'up':'');
-    html+=`<b class="${cls}">${totalD>0?'+':''}${r1(totalD).toFixed(1)} kg</b>since start`;
-  }
-  if(S.targets.w!=null&&S.targets.w!==''){
-    const to=last.w-S.targets.w;
-    html+=`<br><b>${r1(Math.abs(to)).toFixed(1)} kg</b>${to>0?'to goal':'past goal'}`;
-  }
+  if(s.length>1){const d=last.w-first.w;html+=`<b class="${d<0?'down':d>0?'up':''}">${d>0?'+':''}${r1(d).toFixed(1)} kg</b>since start`;}
+  const g=targets();
+  if(g.w!=null&&g.w!==''){const to=last.w-g.w;html+=`<br><b>${r1(Math.abs(to)).toFixed(1)} kg</b>${to>0?'to goal':'past goal'}`;}
   $('wDelta').innerHTML=html;
-
   $('wHistory').innerHTML=s.slice().reverse().slice(0,30).map((e,i,arr)=>{
-    const nx=arr[i+1];
-    const d=nx?e.w-nx.w:null;
-    const cls=d==null?'':(d<0?'down':(d>0?'up':''));
-    return `<div class="entry">
-      <div class="entry-l"><div class="entry-n mono" style="font-size:14px">${new Date(e.d+'T12:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}</div></div>
-      <div class="entry-r">
-        <span class="entry-k">${r1(e.w).toFixed(1)}</span>
-        <span class="entry-k ${cls}" style="width:52px;text-align:right;font-size:11px">${d==null?'':(d>0?'+':'')+r1(d).toFixed(1)}</span>
-        <button class="del" data-wdel="${e.d}">&times;</button>
-      </div>
-    </div>`;
+    const nx=arr[i+1],d=nx?e.w-nx.w:null,cls=d==null?'':d<0?'down':d>0?'up':'';
+    return `<div class="entry"><div class="entry-l"><div class="entry-n mono" style="font-size:14px">${new Date(e.d+'T12:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}</div></div><div class="entry-r"><span class="entry-k">${r1(e.w).toFixed(1)}</span><span class="entry-k ${cls}" style="width:52px;text-align:right;font-size:11px">${d==null?'':(d>0?'+':'')+r1(d).toFixed(1)}</span><button class="del" data-wdel="${e.d}">&times;</button></div></div>`;
   }).join('');
-  $('wHistory').querySelectorAll('[data-wdel]').forEach(b=>{
-    b.onclick=()=>{delete S.weights[b.dataset.wdel];save();renderWeight();};
-  });
-
+  $('wHistory').querySelectorAll('[data-wdel]').forEach(b=>b.onclick=()=>{deleteWeight(b.dataset.wdel);renderWeight();});
   drawChart(s);
 }
-$('wSave').onclick=()=>{
-  const v=parseFloat($('wInput').value);
-  if(!isFinite(v)||v<=0){toast('Enter a weight');return;}
-  S.weights[day]=v;save();renderWeight();toast('Saved');
-};
-
+$('wSave').onclick=()=>{const v=parseFloat($('wInput').value);if(!isFinite(v)||v<=0){toast('Enter a weight');return;}setWeight(day,v);renderWeight();toast('Saved');};
 function drawChart(s){
-  const c=$('chart'),dpr=window.devicePixelRatio||1;
-  const w=c.clientWidth||320,h=120;
-  c.width=w*dpr;c.height=h*dpr;
-  const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);
-  if(s.length<2){
-    x.fillStyle='#7A7266';x.font='11px "IBM Plex Mono",monospace';x.textAlign='center';
-    x.fillText(s.length?'One more weigh-in to draw a line':'Chart appears after two weigh-ins',w/2,h/2);
-    return;
-  }
+  const c=$('chart'),dpr=window.devicePixelRatio||1,w=c.clientWidth||320,h=120;
+  c.width=w*dpr;c.height=h*dpr;const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);
+  if(s.length<2){x.fillStyle='#7A7266';x.font='11px "IBM Plex Mono",monospace';x.textAlign='center';x.fillText(s.length?'One more weigh-in to draw a line':'Chart appears after two weigh-ins',w/2,h/2);return;}
   const pts=s.slice(-90);
-  // 7-day rolling average
-  const avg=pts.map((p,i)=>{
-    const win=pts.slice(Math.max(0,i-6),i+1);
-    return win.reduce((a,b)=>a+b.w,0)/win.length;
-  });
-  const all=pts.map(p=>p.w).concat(avg);
-  let lo=Math.min(...all),hi=Math.max(...all);
+  const avg=pts.map((p,i)=>{const win=pts.slice(Math.max(0,i-6),i+1);return win.reduce((a,b)=>a+b.w,0)/win.length;});
+  const all=pts.map(p=>p.w).concat(avg);let lo=Math.min(...all),hi=Math.max(...all);
   const pad=Math.max(0.4,(hi-lo)*0.18);lo-=pad;hi+=pad;
-  const px=i=>4+i*(w-8)/(pts.length-1);
-  const py=v=>h-10-((v-lo)/(hi-lo))*(h-20);
-
-  x.lineWidth=2;x.strokeStyle='#12100E';x.lineJoin='round';
-  x.beginPath();pts.forEach((p,i)=>i?x.lineTo(px(i),py(p.w)):x.moveTo(px(i),py(p.w)));x.stroke();
-
-  x.setLineDash([4,3]);x.strokeStyle='#8C3A2B';x.lineWidth=2;
-  x.beginPath();avg.forEach((v,i)=>i?x.lineTo(px(i),py(v)):x.moveTo(px(i),py(v)));x.stroke();
-  x.setLineDash([]);
-
-  x.fillStyle='#12100E';
-  const li=pts.length-1;
-  x.beginPath();x.arc(px(li),py(pts[li].w),3.5,0,7);x.fill();
+  const px=i=>4+i*(w-8)/(pts.length-1),py=v=>h-10-((v-lo)/(hi-lo))*(h-20);
+  x.lineWidth=2;x.strokeStyle='#12100E';x.lineJoin='round';x.beginPath();pts.forEach((p,i)=>i?x.lineTo(px(i),py(p.w)):x.moveTo(px(i),py(p.w)));x.stroke();
+  x.setLineDash([4,3]);x.strokeStyle='#8C3A2B';x.lineWidth=2;x.beginPath();avg.forEach((v,i)=>i?x.lineTo(px(i),py(v)):x.moveTo(px(i),py(v)));x.stroke();x.setLineDash([]);
+  x.fillStyle='#12100E';const li=pts.length-1;x.beginPath();x.arc(px(li),py(pts[li].w),3.5,0,7);x.fill();
 }
 
-/* ---------- library ---------- */
+/* ================= library ================= */
 function foodMatches(q){
   q=q.trim().toLowerCase();
-  const list=S.foods.slice().sort((a,b)=>(b.used||0)-(a.used||0)||a.name.localeCompare(b.name));
+  const list=S.foods.slice().sort((a,b)=>(S.usage[b.id]||0)-(S.usage[a.id]||0)||a.name.localeCompare(b.name));
   return q?list.filter(f=>f.name.toLowerCase().includes(q)||(f.bar||'').includes(q)):list;
 }
 function renderLib(){
   $('libCount').textContent=S.foods.length;
   const list=foodMatches($('libSearch').value);
-  $('libList').innerHTML=list.length?list.map(f=>`
-    <div class="pick" data-edit="${f.id}">
-      <div><div class="pick-n">${esc(f.name)}</div>
-      <div class="pick-s">P ${f.p} &nbsp; C ${f.c} &nbsp; F ${f.f}${f.bar?' &nbsp;&middot;&nbsp; '+esc(f.bar):''}</div></div>
-      <div class="pick-k">${r0(kcalOf(f))} kcal</div>
-    </div>`).join(''):`<p class="empty">${S.foods.length?'No match.':'No foods yet. Add one, or scan a barcode.'}</p>`;
-  $('libList').querySelectorAll('[data-edit]').forEach(el=>{
-    el.onclick=()=>openFood(S.foods.find(f=>f.id===el.dataset.edit));
-  });
+  $('libList').innerHTML=list.length?list.map(f=>`<div class="pick" data-edit="${f.id}"><div><div class="pick-n">${esc(f.name)}</div><div class="pick-s">P ${f.p} &nbsp; C ${f.c} &nbsp; F ${f.f}${f.bar?' &nbsp;&middot;&nbsp; '+esc(f.bar):''}</div></div><div class="pick-k">${r0(kcalOf(f))} kcal</div></div>`).join(''):`<p class="empty">${S.foods.length?'No match.':'No foods yet. Add one, or scan a barcode.'}</p>`;
+  $('libList').querySelectorAll('[data-edit]').forEach(el=>el.onclick=()=>openFood(S.foods.find(f=>f.id===el.dataset.edit)));
 }
 $('libSearch').oninput=renderLib;
-
 function renderPick(){
   const list=foodMatches($('pickSearch').value);
-  $('pickList').innerHTML=list.length?list.map(f=>`
-    <div class="pick" data-pick="${f.id}">
-      <div><div class="pick-n">${esc(f.name)}</div>
-      <div class="pick-s">P ${f.p} &nbsp; C ${f.c} &nbsp; F ${f.f} &nbsp; per 100 g</div></div>
-      <div class="pick-k">${r0(kcalOf(f))} kcal</div>
-    </div>`).join(''):`<p class="empty">${S.foods.length?'No match. Create it below.':'Library is empty. Create your first food.'}</p>`;
-  $('pickList').querySelectorAll('[data-pick]').forEach(el=>{
-    el.onclick=()=>openPortion(S.foods.find(f=>f.id===el.dataset.pick));
-  });
+  $('pickList').innerHTML=list.length?list.map(f=>`<div class="pick" data-pick="${f.id}"><div><div class="pick-n">${esc(f.name)}</div><div class="pick-s">P ${f.p} &nbsp; C ${f.c} &nbsp; F ${f.f} &nbsp; per 100 g</div></div><div class="pick-k">${r0(kcalOf(f))} kcal</div></div>`).join(''):`<p class="empty">${S.foods.length?'No match. Create it below.':'Library is empty. Create your first food.'}</p>`;
+  $('pickList').querySelectorAll('[data-pick]').forEach(el=>el.onclick=()=>openPortion(S.foods.find(f=>f.id===el.dataset.pick)));
 }
 $('pickSearch').oninput=renderPick;
 
-/* ---------- food form ---------- */
+/* ================= food form ================= */
 let editing=null;
 function openFood(f,prefill){
   editing=f||null;
@@ -703,110 +638,54 @@ function openFood(f,prefill){
 }
 $('addFoodBtn').onclick=()=>openFood(null);
 $('pickNew').onclick=()=>openFood(null,{name:$('pickSearch').value.trim()});
-
 $('foodSave').onclick=()=>{
-  const name=$('fName').value.trim();
-  if(!name){toast('Name it first');return;}
+  const name=$('fName').value.trim();if(!name){toast('Name it first');return;}
   const num=id=>{const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:0;};
-  const kRaw=$('fK').value.trim();
-  const kv=parseFloat(kRaw);
-  const rec={
-    id:editing?editing.id:uid(),
-    name,p:num('fP'),c:num('fC'),f:num('fF'),
-    k:(kRaw!==''&&isFinite(kv)&&kv>=0)?kv:null,
-    bar:$('fBar').value.trim()||null,
-    used:editing?(editing.used||0):0
-  };
-  if(editing){S.foods=S.foods.map(x=>x.id===rec.id?rec:x);}
-  else{S.foods.push(rec);}
-  save();renderLib();closeSheet();toast(editing?'Updated':'Added to library');
-  editing=null;
+  const kRaw=$('fK').value.trim(),kv=parseFloat(kRaw);
+  const rec={id:editing?editing.id:uid(),name,p:num('fP'),c:num('fC'),f:num('fF'),k:(kRaw!==''&&isFinite(kv)&&kv>=0)?kv:null,bar:$('fBar').value.trim()||null};
+  upsertFood(rec);renderLib();closeSheet();toast(editing?'Updated':'Added to shared library');editing=null;
 };
-$('foodDelete').onclick=()=>{
-  if(!editing)return;
-  if(!confirm('Delete '+editing.name+' from the library? Past entries stay.'))return;
-  S.foods=S.foods.filter(x=>x.id!==editing.id);
-  save();renderLib();closeSheet();editing=null;toast('Deleted');
-};
+$('foodDelete').onclick=()=>{if(!editing)return;if(!confirm('Delete '+editing.name+' from the shared library? Both people lose it. Past entries stay.'))return;deleteFood(editing.id);renderLib();closeSheet();editing=null;toast('Deleted');};
 
-/* ---------- portion ---------- */
+/* ================= portion ================= */
 let cur=null;
 function openPortion(f){
-  cur=f;
-  $('portionName').textContent=f.name.length>26?f.name.slice(0,26)+'…':f.name;
-  $('grams').value=100;
+  cur=f;$('portionName').textContent=f.name.length>26?f.name.slice(0,26)+'…':f.name;$('grams').value=100;
   $('chips').innerHTML=[25,50,100,150,200,250].map(g=>`<button class="chip" data-g="${g}">${g} g</button>`).join('');
   $('chips').querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{$('grams').value=b.dataset.g;preview();});
   preview();sheet('sheetPortion');
 }
-function preview(){
-  if(!cur)return;
-  const g=parseFloat($('grams').value)||0,m=g/100;
-  $('pvK').textContent=r0(kcalOf(cur)*m);
-  $('pvP').textContent=r1(cur.p*m);
-  $('pvC').textContent=r1(cur.c*m);
-  $('pvF').textContent=r1(cur.f*m);
-}
+function preview(){if(!cur)return;const g=parseFloat($('grams').value)||0,m=g/100;$('pvK').textContent=r0(kcalOf(cur)*m);$('pvP').textContent=r1(cur.p*m);$('pvC').textContent=r1(cur.c*m);$('pvF').textContent=r1(cur.f*m);}
 $('grams').oninput=preview;
 $('portionAdd').onclick=()=>{
-  const g=parseFloat($('grams').value);
-  if(!isFinite(g)||g<=0){toast('Enter grams');return;}
+  const g=parseFloat($('grams').value);if(!isFinite(g)||g<=0){toast('Enter grams');return;}
   const m=g/100;
-  (S.log[day]=S.log[day]||[]).push({
-    id:uid(),name:cur.name,g,
-    k:kcalOf(cur)*m,p:cur.p*m,c:cur.c*m,f:cur.f*m
-  });
-  const fi=S.foods.find(x=>x.id===cur.id);if(fi)fi.used=(fi.used||0)+1;
-  save();closeSheet();
-  if(view!=='today'){document.querySelector('nav button[data-v="today"]').click();}
-  else renderToday();
+  addEntry({id:uid(),food:cur.id,day,name:cur.name,g,k:kcalOf(cur)*m,p:cur.p*m,c:cur.c*m,f:cur.f*m});
+  closeSheet();
+  if(view!=='today')document.querySelector('nav button[data-v="today"]').click();else renderToday();
   toast(r0(kcalOf(cur)*m)+' kcal added');
 };
-
 $('fab').onclick=()=>{$('pickSearch').value='';renderPick();sheet('sheetPick');setTimeout(()=>$('pickSearch').focus(),300);};
 
-/* ---------- barcode ---------- */
+/* ================= barcode ================= */
 let stream=null,scanning=false,scanTarget='pick';
 async function startScan(target){
   scanTarget=target;
-  if(!('BarcodeDetector' in window)){
-    toast('This browser can’t scan. Type the barcode instead.');return;
-  }
-  try{
-    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}}});
-  }catch(e){toast('Camera blocked. Allow it in Settings.');return;}
+  if(!('BarcodeDetector' in window)){toast('This browser can’t scan. Type the barcode instead.');return;}
+  try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}}});}
+  catch(e){toast('Camera blocked. Allow it in Settings → Safari → Camera.');return;}
   const v=$('cam');v.srcObject=stream;await v.play();
-  $('scanwrap').classList.add('on');$('scanMsg').textContent='Point at the barcode';
-  scanning=true;
+  $('scanwrap').classList.add('on');$('scanMsg').textContent='Point at the barcode';scanning=true;
   const det=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e']});
-  const tick=async()=>{
-    if(!scanning)return;
-    try{
-      const found=await det.detect(v);
-      if(found.length){onBarcode(found[0].rawValue);return;}
-    }catch(e){}
-    requestAnimationFrame(tick);
-  };
+  const tick=async()=>{if(!scanning)return;try{const f=await det.detect(v);if(f.length){onBarcode(f[0].rawValue);return;}}catch(e){}requestAnimationFrame(tick);};
   requestAnimationFrame(tick);
 }
-function stopScan(){
-  scanning=false;
-  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
-  $('cam').srcObject=null;$('scanwrap').classList.remove('on');
-}
-$('scanClose').onclick=stopScan;
-$('pickScan').onclick=()=>startScan('pick');
-$('libScan').onclick=()=>startScan('lib');
-
+function stopScan(){scanning=false;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}$('cam').srcObject=null;$('scanwrap').classList.remove('on');}
+$('scanClose').onclick=stopScan;$('pickScan').onclick=()=>startScan('pick');$('libScan').onclick=()=>startScan('lib');
 async function onBarcode(code){
   scanning=false;
   const known=S.foods.find(f=>f.bar===code);
-  if(known){
-    stopScan();
-    if(scanTarget==='pick'){closeSheet();openPortion(known);}
-    else openFood(known);
-    return;
-  }
+  if(known){stopScan();if(scanTarget==='pick'){closeSheet();openPortion(known);}else openFood(known);return;}
   $('scanMsg').textContent='Looking up '+code;
   let pre={bar:code};
   try{
@@ -814,58 +693,76 @@ async function onBarcode(code){
     const j=await r.json();
     if(j&&j.status===1&&j.product){
       const p=j.product,n=p.nutriments||{};
-      const nm=[p.brands?String(p.brands).split(',')[0].trim():'',p.product_name||''].filter(Boolean).join(' ');
-      pre.name=nm||'';
+      pre.name=[p.brands?String(p.brands).split(',')[0].trim():'',p.product_name||''].filter(Boolean).join(' ')||'';
       if(n.proteins_100g!=null)pre.p=r1(n.proteins_100g);
       if(n.carbohydrates_100g!=null)pre.c=r1(n.carbohydrates_100g);
       if(n.fat_100g!=null)pre.f=r1(n.fat_100g);
       if(n['energy-kcal_100g']!=null)pre.k=r0(n['energy-kcal_100g']);
     }
   }catch(e){}
-  stopScan();
-  closeSheet();
-  openFood(null,pre);
+  stopScan();closeSheet();openFood(null,pre);
   toast(pre.name?'Found — check the label':'Not in the database. Enter it once.');
 }
 
-/* ---------- settings ---------- */
+/* ================= settings ================= */
 function renderSet(){
-  $('tKcal').value=S.targets.kcal;$('tP').value=S.targets.p;
-  $('tC').value=S.targets.c;$('tF').value=S.targets.f;
-  $('tW').value=S.targets.w!=null?S.targets.w:'';
+  const g=targets();
+  $('tKcal').value=g.kcal;$('tP').value=g.p;$('tC').value=g.c;$('tF').value=g.f;$('tW').value=g.w!=null?g.w:'';
+  $('setWho').textContent=(S.profile&&S.profile.name)||'—';
+  $('whoLabel').textContent=(S.profile&&S.profile.name)||'';
 }
 $('saveTargets').onclick=()=>{
   const n=(id,d)=>{const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:d;};
   const wv=parseFloat($('tW').value);
-  S.targets={kcal:n('tKcal',2000),p:n('tP',150),c:n('tC',200),f:n('tF',65),w:isFinite(wv)&&wv>0?wv:null};
-  save();toast('Targets saved');renderToday();
+  saveTargets({kcal:n('tKcal',2000),p:n('tP',150),c:n('tC',200),f:n('tF',65),w:isFinite(wv)&&wv>0?wv:null});
+  toast('Targets saved');renderToday();
+};
+$('copyCode').onclick=async()=>{
+  const code=btoa(JSON.stringify({url:CFG.url,key:CFG.key}));
+  try{await navigator.clipboard.writeText(code);toast('Code copied — send it to the other phone');}
+  catch(e){prompt('Copy this code and send it:',code);}
+};
+$('switchPerson').onclick=()=>{
+  if(!confirm('Switch to a different person on this phone?'))return;
+  CFG.pid='';saveCfg();
+  api('GET','profiles?select=*').then(p=>{S.profiles=p||[];renderProfiles();showGate('who');}).catch(()=>{renderProfiles();showGate('who');});
+};
+$('disconnect').onclick=()=>{
+  if(!confirm('Disconnect this phone? You’ll re-enter the connection code to get back in. Your cloud data is safe.'))return;
+  localStorage.removeItem(cacheKey());CFG={};saveCfg();location.reload();
 };
 $('exportBtn').onclick=()=>{
-  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);a.download='ledger-'+today()+'.json';
-  document.body.appendChild(a);a.click();a.remove();
-  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  const blob=new Blob([JSON.stringify({foods:S.foods,profile:S.profile,entries:S.entries,weights:S.weights},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ledger-'+(S.profile?S.profile.name:'me')+'-'+today()+'.json';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
 $('importBtn').onclick=()=>$('importFile').click();
 $('importFile').onchange=e=>{
   const file=e.target.files[0];if(!file)return;
   const rd=new FileReader();
   rd.onload=()=>{
-    try{
-      const d=JSON.parse(rd.result);
-      if(!d||typeof d!=='object'||!('foods' in d))throw 0;
-      if(!confirm('Replace everything currently on this phone with the backup?'))return;
-      S=Object.assign({},blank,d);
-      S.targets=Object.assign({},blank.targets,S.targets||{});
-      save();renderSet();render();toast('Backup restored');
-    }catch(err){toast('That file isn’t a Ledger backup');}
+    let d;try{d=JSON.parse(rd.result);}catch(err){toast('Not a valid backup file');return;}
+    if(!d||typeof d!=='object'){toast('Not a valid backup file');return;}
+    if(!confirm('Import this data into your profile and the shared library?'))return;
+    // old format: {foods, log, weights, targets}
+    (d.foods||[]).forEach(f=>{
+      const exists=S.foods.find(x=>x.name===f.name&&x.p===(+f.p||0));
+      if(exists)return;
+      upsertFood({id:f.id||uid(),name:f.name,p:+f.p||0,c:+f.c||0,f:+f.f||0,k:f.k==null?null:+f.k,bar:f.bar||null});
+    });
+    const log=d.log||d.entries||{};
+    Object.keys(log).forEach(dk=>{
+      (log[dk]||[]).forEach(en=>addEntry({id:en.id||uid(),food:en.food||'',day:dk,name:en.name,g:+en.g||0,k:+en.k||0,p:+en.p||0,c:+en.c||0,f:+en.f||0}));
+    });
+    const wts=d.weights||{};
+    Object.keys(wts).forEach(dk=>setWeight(dk,+wts[dk]));
+    if(d.targets)saveTargets({kcal:+d.targets.kcal||2000,p:+d.targets.p||150,c:+d.targets.c||200,f:+d.targets.f||65,w:d.targets.w!=null?+d.targets.w:null});
+    render();toast('Imported — syncing to cloud');
   };
-  rd.readAsText(file);
-  e.target.value='';
+  rd.readAsText(file);e.target.value='';
 };
 
-/* ---------- go ---------- */
+/* ================= render + boot ================= */
 function render(){
   $('datelabel').textContent=dateLabel();
   $('next').disabled=(day===today());
@@ -874,12 +771,23 @@ function render(){
   if(view==='foods')renderLib();
   if(view==='set')renderSet();
 }
-window.addEventListener('resize',()=>{if(view==='weight')drawChart(weightSeries());});
-document.addEventListener('visibilitychange',()=>{
-  if(!document.hidden&&day!==today()&&iso(new Date())!==day){/* keep manual date */}
-});
-renderSet();render();
-</script>
+window.addEventListener('resize',()=>{if(view==='weight')drawChart(wSeries());});
+window.addEventListener('online',()=>{flush().then(pull);});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)pull();});
 
+function boot(){
+  if(!S.profile)S.profile={id:CFG.pid,name:'',kcal:2000,p:150,c:200,f:65,w:null};
+  render();pull();
+}
+
+/* start */
+if(!CFG.url||!CFG.key){showGate('connect');}
+else if(!CFG.pid){
+  api('GET','profiles?select=*').then(p=>{S.profiles=p||[];renderProfiles();showGate('who');})
+  .catch(()=>{showGate('connect');});
+}else{
+  loadCache();hideGate();boot();
+}
+</script>
 </body>
 </html>
