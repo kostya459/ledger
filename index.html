@@ -99,6 +99,7 @@ nav button.on::after{content:'';position:absolute;top:0;left:50%;transform:trans
 label{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0 0 6px}
 input{width:100%;padding:11px 12px;border:1.5px solid var(--rule);background:transparent;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--ink);-webkit-appearance:none}
 input:focus{outline:none;border-color:var(--ink)}
+input[readonly]{color:var(--dim);border-style:dashed;background:rgba(201,191,174,.12)}
 textarea{width:100%;padding:11px 12px;border:1.5px solid var(--rule);background:transparent;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink);min-height:80px;resize:vertical}
 textarea:focus{outline:none;border-color:var(--ink)}
 .field{margin-bottom:14px}
@@ -244,13 +245,14 @@ textarea:focus{outline:none;border-color:var(--ink)}
     <div id="v-set" class="hide">
       <section>
         <p class="eyebrow">Daily targets</p>
-        <div class="field"><label>Calories &mdash; kcal</label><input type="number" inputmode="numeric" id="tKcal"></div>
         <div class="grid4">
           <div class="field"><label>Protein g</label><input type="number" inputmode="numeric" id="tP"></div>
           <div class="field"><label>Carbs g</label><input type="number" inputmode="numeric" id="tC"></div>
           <div class="field"><label>Fat g</label><input type="number" inputmode="numeric" id="tF"></div>
           <div class="field"><label>Weight goal kg</label><input type="number" inputmode="decimal" step="0.1" id="tW"></div>
         </div>
+        <div class="field"><label>Calories &mdash; from macros</label><input type="number" id="tKcal" readonly></div>
+        <p class="hint" style="margin:-6px 0 14px">Calories update as you type: protein &times;4 + carbs &times;4 + fat &times;9.</p>
         <button class="btn" id="saveTargets">Save targets</button>
       </section>
       <section>
@@ -430,7 +432,8 @@ async function pull(){
 }
 
 /* ================= mutations ================= */
-function targets(){return S.profile||dflT;}
+const kcalFromMacros=(p,c,f)=>Math.round((+p||0)*4+(+c||0)*4+(+f||0)*9);
+function targets(){const t=S.profile||dflT;return Object.assign({},t,{kcal:kcalFromMacros(t.p,t.c,t.f)});}
 
 function upsertFood(rec){
   const i=S.foods.findIndex(f=>f.id===rec.id);
@@ -471,7 +474,7 @@ function showGate(stage){
   $('gate-connect').classList.toggle('hide',stage!=='connect');
   $('gate-who').classList.toggle('hide',stage!=='who');
 }
-function hideGate(){$('gate').classList.remove('on');$('app').classList.remove('hide');$('tabbar').classList.remove('hide');}
+function hideGate(){$('gate').classList.remove('on');$('app').classList.remove('hide');$('tabbar').classList.remove('hide');$('fab').classList.remove('hide');}
 
 $('gCodeBtn').onclick=()=>{
   try{
@@ -667,22 +670,39 @@ $('portionAdd').onclick=()=>{
 };
 $('fab').onclick=()=>{$('pickSearch').value='';renderPick();sheet('sheetPick');setTimeout(()=>$('pickSearch').focus(),300);};
 
-/* ================= barcode ================= */
-let stream=null,scanning=false,scanTarget='pick';
+/* ================= barcode (ZXing — works on iOS Safari) ================= */
+let scanning=false,scanTarget='pick',reader=null,zxingP=null;
+function loadZXing(){
+  if(window.ZXing&&ZXing.BrowserMultiFormatReader)return Promise.resolve();
+  if(zxingP)return zxingP;
+  zxingP=new Promise((res,rej)=>{
+    const s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js';
+    s.onload=()=>res();s.onerror=()=>{zxingP=null;rej(new Error('load'));};
+    document.head.appendChild(s);
+  });
+  return zxingP;
+}
 async function startScan(target){
   scanTarget=target;
-  if(!('BarcodeDetector' in window)){toast('This browser can’t scan. Type the barcode instead.');return;}
-  try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}}});}
-  catch(e){toast('Camera blocked. Allow it in Settings → Safari → Camera.');return;}
-  const v=$('cam');v.srcObject=stream;await v.play();
-  $('scanwrap').classList.add('on');$('scanMsg').textContent='Point at the barcode';scanning=true;
-  const det=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e']});
-  const tick=async()=>{if(!scanning)return;try{const f=await det.detect(v);if(f.length){onBarcode(f[0].rawValue);return;}}catch(e){}requestAnimationFrame(tick);};
-  requestAnimationFrame(tick);
+  $('scanwrap').classList.add('on');$('scanMsg').textContent='Loading scanner…';
+  try{await loadZXing();}
+  catch(e){$('scanwrap').classList.remove('on');toast('Scanner couldn’t load — check your connection');return;}
+  $('scanMsg').textContent='Point at the barcode';scanning=true;
+  try{
+    reader=new ZXing.BrowserMultiFormatReader();
+    await reader.decodeFromConstraints({video:{facingMode:{ideal:'environment'}}},$('cam'),(result)=>{
+      if(result&&scanning)onBarcode(result.getText());
+    });
+  }catch(e){
+    scanning=false;$('scanwrap').classList.remove('on');
+    toast('Camera blocked. Allow it in Settings → Safari → Camera.');
+  }
 }
-function stopScan(){scanning=false;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}$('cam').srcObject=null;$('scanwrap').classList.remove('on');}
+function stopScan(){scanning=false;if(reader){try{reader.reset();}catch(e){}reader=null;}$('scanwrap').classList.remove('on');}
 $('scanClose').onclick=stopScan;$('pickScan').onclick=()=>startScan('pick');$('libScan').onclick=()=>startScan('lib');
 async function onBarcode(code){
+  if(!scanning)return;
   scanning=false;
   const known=S.foods.find(f=>f.bar===code);
   if(known){stopScan();if(scanTarget==='pick'){closeSheet();openPortion(known);}else openFood(known);return;}
@@ -705,16 +725,23 @@ async function onBarcode(code){
 }
 
 /* ================= settings ================= */
+function recalcKcal(){
+  const v=id=>{const x=parseFloat($(id).value);return isFinite(x)&&x>=0?x:0;};
+  $('tKcal').value=kcalFromMacros(v('tP'),v('tC'),v('tF'));
+}
+['tP','tC','tF'].forEach(id=>$(id).addEventListener('input',recalcKcal));
 function renderSet(){
   const g=targets();
-  $('tKcal').value=g.kcal;$('tP').value=g.p;$('tC').value=g.c;$('tF').value=g.f;$('tW').value=g.w!=null?g.w:'';
+  $('tP').value=g.p;$('tC').value=g.c;$('tF').value=g.f;$('tW').value=g.w!=null?g.w:'';
+  recalcKcal();
   $('setWho').textContent=(S.profile&&S.profile.name)||'—';
   $('whoLabel').textContent=(S.profile&&S.profile.name)||'';
 }
 $('saveTargets').onclick=()=>{
   const n=(id,d)=>{const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:d;};
   const wv=parseFloat($('tW').value);
-  saveTargets({kcal:n('tKcal',2000),p:n('tP',150),c:n('tC',200),f:n('tF',65),w:isFinite(wv)&&wv>0?wv:null});
+  const p=n('tP',150),c=n('tC',200),f=n('tF',65);
+  saveTargets({kcal:kcalFromMacros(p,c,f),p,c,f,w:isFinite(wv)&&wv>0?wv:null});
   toast('Targets saved');renderToday();
 };
 $('copyCode').onclick=async()=>{
@@ -766,6 +793,7 @@ $('importFile').onchange=e=>{
 function render(){
   $('datelabel').textContent=dateLabel();
   $('next').disabled=(day===today());
+  $('fab').style.display=(view==='today')?'block':'none';
   if(view==='today')renderToday();
   if(view==='weight')renderWeight();
   if(view==='foods')renderLib();
