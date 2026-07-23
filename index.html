@@ -69,6 +69,27 @@ section:last-child{border-bottom:none}
 .del{background:none;border:none;color:var(--rule);font-size:17px;padding:0 0 0 2px;cursor:pointer;line-height:1}
 .empty{font-style:italic;color:var(--dim);font-size:14px;padding:14px 0}
 
+.mcard{border:1.5px solid var(--rule);border-radius:var(--r);padding:13px 14px;margin-bottom:10px;cursor:pointer}
+.mcard.unsorted{border-style:dashed}
+.mcard-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px}
+.mcard-n{font-size:16px;font-weight:600}
+.mcard-k{font-family:'IBM Plex Mono',monospace;font-size:12px;font-variant-numeric:tabular-nums;flex-shrink:0}
+.mcard-k b{font-weight:600}.mcard-k span{color:var(--dim)}
+.mcard-k.over b{color:var(--mark)}
+.mtrack{height:3px;background:var(--rule);position:relative;overflow:visible;margin-bottom:9px}
+.mtrack .fill{height:3px}
+.mmac{display:flex;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.04em;color:var(--dim);text-transform:uppercase}
+.mmac b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.mcard-empty{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--dim);letter-spacing:.04em}
+
+.medrow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;padding:10px 0;border-bottom:1px dotted var(--rule)}
+.medrow input.mname{margin-bottom:6px}
+.medrow .macs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.medrow .macs input{padding:8px 6px;font-size:14px;text-align:center}
+.medrow .macs label{font-size:8px;margin:0 0 3px;text-align:center}
+.medrow .rmv{background:none;border:none;color:var(--mark);font-size:20px;cursor:pointer;padding:0 2px;line-height:1;align-self:center}
+.medcal{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dim);text-align:right;margin-top:4px;letter-spacing:.08em}
+
 .wt{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px}
 .wt .now{font-family:'IBM Plex Mono',monospace;font-size:38px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .wt .unit{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--dim);padding-bottom:4px}
@@ -214,8 +235,8 @@ textarea:focus{outline:none;border-color:var(--ink)}
         <div class="rules" id="macroRules"></div>
       </section>
       <section>
-        <p class="eyebrow"><span>Entries &mdash; <span id="entryCount">0</span></span><button id="clearDay">clear day</button></p>
-        <div id="entries"></div>
+        <p class="eyebrow"><span>Meals</span><button id="clearDay">clear day</button></p>
+        <div id="mealCards"></div>
       </section>
     </div>
 
@@ -256,6 +277,17 @@ textarea:focus{outline:none;border-color:var(--ink)}
         <button class="btn" id="saveTargets">Save targets</button>
       </section>
       <section>
+        <p class="eyebrow"><span>Meals &mdash; <span id="mealEdCount">0</span></span><button id="splitEqual">split equally</button></p>
+        <div id="mealEditor"></div>
+        <button class="btn ghost" id="addMealRow" style="margin-top:4px">+ add meal</button>
+        <p class="hint" id="mealSum"></p>
+        <button class="btn" id="saveMeals" style="margin-top:6px">Save meals</button>
+      </section>
+      <section>
+        <p class="eyebrow">Saved templates &mdash; <span id="tplCount">0</span></p>
+        <div id="tplList"></div>
+      </section>
+      <section>
         <p class="eyebrow">Shared space</p>
         <p class="hint" style="margin-top:0">You are <b id="setWho" style="color:var(--ink)"></b>. Give the connection code below to the other person so they can join the same space.</p>
         <button class="btn ghost" id="copyCode">Copy connection code</button>
@@ -285,11 +317,43 @@ textarea:focus{outline:none;border-color:var(--ink)}
 <div class="scrim" id="scrim"></div>
 
 <div class="sheet" id="sheetPick">
-  <div class="sheet-h"><h2>Add entry</h2><button class="close">&times;</button></div>
+  <div class="sheet-h"><h2 id="pickTitle">Add entry</h2><button class="close">&times;</button></div>
   <div class="sheet-b">
     <div class="search"><input id="pickSearch" placeholder="Search shared foods" autocomplete="off"><button class="scanbtn" id="pickScan">&#9707;</button></div>
     <div id="pickList"></div>
     <button class="btn ghost" id="pickNew" style="margin-top:14px">Create new food</button>
+    <button class="btn" id="pickDone" style="margin-top:9px">Done</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheetMeal">
+  <div class="sheet-h"><h2>Which meal?</h2><button class="close">&times;</button></div>
+  <div class="sheet-b"><div id="mealChooseList"></div></div>
+</div>
+
+<div class="sheet" id="sheetMealDetail">
+  <div class="sheet-h"><h2 id="mdTitle">Meal</h2><button class="close">&times;</button></div>
+  <div class="sheet-b">
+    <p class="hint" id="mdTarget" style="margin-top:0"></p>
+    <div id="mdItems"></div>
+    <button class="btn" id="mdAdd" style="margin-top:14px">Add product</button>
+    <button class="btn ghost" id="mdTemplate" style="margin-top:9px">Add from template</button>
+    <button class="btn ghost" id="mdSaveTpl" style="margin-top:9px">Save meal as template</button>
+    <button class="btn ghost" id="mdCopy" style="margin-top:9px">Copy meal to&hellip;</button>
+    <button class="btn danger" id="mdClear" style="margin-top:9px">Clear meal</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheetChoose">
+  <div class="sheet-h"><h2 id="chTitle">Choose</h2><button class="close">&times;</button></div>
+  <div class="sheet-b"><div id="chList"></div></div>
+</div>
+
+<div class="sheet" id="sheetName">
+  <div class="sheet-h"><h2 id="nmTitle">Name</h2><button class="close">&times;</button></div>
+  <div class="sheet-b">
+    <div class="field"><input id="nmInput" autocomplete="off" placeholder="Type a name"></div>
+    <button class="btn" id="nmSave">Save</button>
   </div>
 </div>
 
@@ -406,7 +470,9 @@ async function flush(){
 function queue(op){S.pending.push(op);saveCache();flush();}
 
 const nF=f=>({id:f.id,name:f.name,p:+f.p||0,c:+f.c||0,f:+f.f||0,k:f.k==null?null:+f.k,bar:f.bar||null});
-const nE=e=>({id:e.id,profile:e.profile,day:e.day,name:e.name,g:+e.g||0,k:+e.k||0,p:+e.p||0,c:+e.c||0,f:+e.f||0});
+const nE=e=>({id:e.id,profile:e.profile,day:e.day,name:e.name,g:+e.g||0,k:+e.k||0,p:+e.p||0,c:+e.c||0,f:+e.f||0,meal:e.meal||null});
+function nProfile(me){return {id:me.id,name:me.name,kcal:+me.kcal,p:+me.p,c:+me.c,f:+me.f,w:me.w==null?null:+me.w,meals:Array.isArray(me.meals)?me.meals:(me.meals?parseJ(me.meals):null),templates:Array.isArray(me.templates)?me.templates:(me.templates?parseJ(me.templates):null)};}
+function parseJ(x){try{return typeof x==='string'?JSON.parse(x):x;}catch(e){return null;}}
 
 async function pull(){
   if(!CFG.url||!CFG.pid)return;
@@ -424,9 +490,10 @@ async function pull(){
     S.foods=(foods||[]).map(nF);
     S.profiles=profs||[];
     const me=(profs||[]).find(p=>p.id===CFG.pid);
-    if(me)S.profile={id:me.id,name:me.name,kcal:+me.kcal,p:+me.p,c:+me.c,f:+me.f,w:me.w==null?null:+me.w};
+    if(me)S.profile=nProfile(me);
     S.entries={};(ents||[]).forEach(e=>{const n=nE(e);(S.entries[n.day]=S.entries[n.day]||[]).push(n);});
     S.weights={};(wts||[]).forEach(w=>{S.weights[w.day]=+w.w;});
+    ensureMeals();
     saveCache();setStatus('ok');render();
   }catch(e){setStatus('off');}
 }
@@ -447,8 +514,9 @@ function deleteFood(id){
 }
 function addEntry(rec){
   (S.entries[rec.day]=S.entries[rec.day]||[]).push(rec);
-  S.usage[rec.food]=(S.usage[rec.food]||0)+1;saveCache();
-  queue({k:'entry',v:{id:rec.id,profile:CFG.pid,day:rec.day,name:rec.name,g:rec.g,k:rec.k,p:rec.p,c:rec.c,f:rec.f}});
+  if(rec.food)S.usage[rec.food]=(S.usage[rec.food]||0)+1;
+  saveCache();
+  queue({k:'entry',v:{id:rec.id,profile:CFG.pid,day:rec.day,name:rec.name,g:rec.g,k:rec.k,p:rec.p,c:rec.c,f:rec.f,meal:rec.meal||null}});
 }
 function deleteEntry(dayk,id){
   S.entries[dayk]=(S.entries[dayk]||[]).filter(e=>e.id!==id);
@@ -463,10 +531,32 @@ function deleteWeight(dayk){
   delete S.weights[dayk];saveCache();
   queue({k:'del-weight',v:{profile:CFG.pid,day:dayk}});
 }
-function saveTargets(t){
-  S.profile=Object.assign({},S.profile,t);saveCache();
-  queue({k:'profile',v:{id:CFG.pid,name:S.profile.name,kcal:t.kcal,p:t.p,c:t.c,f:t.f,w:t.w}});
+function pushProfile(){
+  const p=S.profile;
+  queue({k:'profile',v:{id:p.id,name:p.name,kcal:kcalFromMacros(p.p,p.c,p.f),p:p.p,c:p.c,f:p.f,w:p.w,meals:p.meals||null,templates:p.templates||null}});
 }
+function saveTargets(t){
+  S.profile=Object.assign({},S.profile,t);saveCache();pushProfile();
+}
+
+/* ---- meal structure ---- */
+const DEFAULT_NAMES=['Breakfast','Lunch','Dinner','Snack','Meal 5','Meal 6','Meal 7','Meal 8','Meal 9','Meal 10'];
+function splitEqual(names){
+  const g=targets(),n=names.length;
+  return names.map((nm,i)=>({id:uid(),name:nm,p:Math.round(g.p/n),c:Math.round(g.c/n),f:Math.round(g.f/n)}));
+}
+function ensureMeals(){
+  if(!S.profile)return;
+  if(!Array.isArray(S.profile.meals)||!S.profile.meals.length){
+    S.profile.meals=splitEqual(['Breakfast','Lunch','Dinner']);
+    saveCache();pushProfile();
+  }
+}
+function meals(){return (S.profile&&S.profile.meals)||[];}
+function templates(){return (S.profile&&S.profile.templates)||[];}
+function mealTarget(m){return {p:+m.p||0,c:+m.c||0,f:+m.f||0,kcal:kcalFromMacros(m.p,m.c,m.f)};}
+function saveMeals(list){S.profile.meals=list;saveCache();pushProfile();}
+function saveTemplates(list){S.profile.templates=list;saveCache();pushProfile();}
 
 /* ================= gate / onboarding ================= */
 function showGate(stage){
@@ -561,11 +651,37 @@ function renderToday(){
     const pct=gt?v/gt*100:0;
     return `<div class="rule-row"><div class="rule-head"><span class="rule-name">${n}</span><span class="rule-fig"><b>${r0(v)}</b><span> / ${gt} g</span></span></div><div class="track"><div class="fill${pct>100?' over':''}" style="width:${Math.min(100,pct)}%"></div><div class="tick" style="left:100%"></div></div></div>`;
   }).join('');
-  const rows=S.entries[day]||[];
-  $('entryCount').textContent=rows.length;
-  $('clearDay').style.visibility=rows.length?'visible':'hidden';
-  $('entries').innerHTML=rows.length?rows.map(e=>`<div class="entry"><div class="entry-l"><div class="entry-n">${esc(e.name)}</div><div class="entry-s">${r0(e.g)} g &nbsp;&middot;&nbsp; P ${r1(e.p)} &nbsp; C ${r1(e.c)} &nbsp; F ${r1(e.f)}</div></div><div class="entry-r"><span class="entry-k">${r0(e.k)}</span><button class="del" data-del="${e.id}">&times;</button></div></div>`).join(''):`<p class="empty">Nothing logged ${day===today()?'yet today':'this day'}. Tap + to add something.</p>`;
-  $('entries').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{deleteEntry(day,b.dataset.del);renderToday();});
+  renderMeals();
+  $('clearDay').style.visibility=(S.entries[day]||[]).length?'visible':'hidden';
+}
+function entriesOfMeal(mid){return (S.entries[day]||[]).filter(e=>(e.meal||null)===mid);}
+function sumEntries(list){return list.reduce((a,e)=>{a.k+=e.k;a.p+=e.p;a.c+=e.c;a.f+=e.f;return a;},{k:0,p:0,c:0,f:0});}
+function renderMeals(){
+  const ms=meals();
+  let html='';
+  ms.forEach(m=>{
+    const list=entriesOfMeal(m.id),got=sumEntries(list),tg=mealTarget(m);
+    const over=got.k>tg.kcal&&tg.kcal>0;
+    const pct=tg.kcal?Math.min(100,got.k/tg.kcal*100):0;
+    html+=`<div class="mcard" data-meal="${m.id}">
+      <div class="mcard-h"><span class="mcard-n">${esc(m.name)}</span>
+        <span class="mcard-k${over?' over':''}"><b>${r0(got.k)}</b><span> / ${tg.kcal} kcal</span></span></div>
+      <div class="mtrack"><div class="fill${over?' over':''}" style="width:${pct}%"></div><div class="tick" style="left:100%"></div></div>
+      ${list.length?`<div class="mmac"><span><b>${r0(got.p)}</b>/${tg.p} P</span><span><b>${r0(got.c)}</b>/${tg.c} C</span><span><b>${r0(got.f)}</b>/${tg.f} F</span></div>`:`<div class="mcard-empty">Empty &middot; target ${tg.p} P &nbsp; ${tg.c} C &nbsp; ${tg.f} F</div>`}
+    </div>`;
+  });
+  // unsorted: entries whose meal id isn't in the meal list
+  const ids=ms.map(m=>m.id);
+  const orphan=(S.entries[day]||[]).filter(e=>!e.meal||ids.indexOf(e.meal)<0);
+  if(orphan.length){
+    const got=sumEntries(orphan);
+    html+=`<div class="mcard unsorted" data-meal="__unsorted">
+      <div class="mcard-h"><span class="mcard-n">Unsorted</span><span class="mcard-k"><b>${r0(got.k)}</b><span> kcal</span></span></div>
+      <div class="mcard-empty">${orphan.length} item${orphan.length>1?'s':''} not in a meal &middot; tap to sort</div></div>`;
+  }
+  if(!ms.length&&!orphan.length)html=`<p class="empty">No meals set up yet. Add some in Setup, then tap + to fill them.</p>`;
+  $('mealCards').innerHTML=html;
+  $('mealCards').querySelectorAll('[data-meal]').forEach(el=>el.onclick=()=>openMealDetail(el.dataset.meal));
 }
 $('clearDay').onclick=()=>{if(!(S.entries[day]||[]).length)return;if(confirm('Remove every entry for '+dateLabel().toLowerCase()+'?')){(S.entries[day]||[]).slice().forEach(e=>deleteEntry(day,e.id));renderToday();}};
 
@@ -639,14 +755,17 @@ function openFood(f,prefill){
   $('foodDelete').classList.toggle('hide',!f);
   sheet('sheetFood');
 }
-$('addFoodBtn').onclick=()=>openFood(null);
-$('pickNew').onclick=()=>openFood(null,{name:$('pickSearch').value.trim()});
+let foodFromAdd=false;
+$('addFoodBtn').onclick=()=>{foodFromAdd=false;openFood(null);};
+$('pickNew').onclick=()=>{foodFromAdd=true;openFood(null,{name:$('pickSearch').value.trim()});};
 $('foodSave').onclick=()=>{
   const name=$('fName').value.trim();if(!name){toast('Name it first');return;}
   const num=id=>{const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:0;};
   const kRaw=$('fK').value.trim(),kv=parseFloat(kRaw);
   const rec={id:editing?editing.id:uid(),name,p:num('fP'),c:num('fC'),f:num('fF'),k:(kRaw!==''&&isFinite(kv)&&kv>=0)?kv:null,bar:$('fBar').value.trim()||null};
-  upsertFood(rec);renderLib();closeSheet();toast(editing?'Updated':'Added to shared library');editing=null;
+  const wasNew=!editing;upsertFood(rec);renderLib();
+  if(wasNew&&foodFromAdd&&activeMeal){foodFromAdd=false;editing=null;openPortion(rec);toast('Added — set the portion');return;}
+  closeSheet();toast(editing?'Updated':'Added to shared library');editing=null;
 };
 $('foodDelete').onclick=()=>{if(!editing)return;if(!confirm('Delete '+editing.name+' from the shared library? Both people lose it. Past entries stay.'))return;deleteFood(editing.id);renderLib();closeSheet();editing=null;toast('Deleted');};
 
@@ -663,12 +782,105 @@ $('grams').oninput=preview;
 $('portionAdd').onclick=()=>{
   const g=parseFloat($('grams').value);if(!isFinite(g)||g<=0){toast('Enter grams');return;}
   const m=g/100;
-  addEntry({id:uid(),food:cur.id,day,name:cur.name,g,k:kcalOf(cur)*m,p:cur.p*m,c:cur.c*m,f:cur.f*m});
-  closeSheet();
-  if(view!=='today')document.querySelector('nav button[data-v="today"]').click();else renderToday();
+  addEntry({id:uid(),food:cur.id,day,name:cur.name,g,k:kcalOf(cur)*m,p:cur.p*m,c:cur.c*m,f:cur.f*m,meal:activeMeal});
+  if(view==='today')renderToday();
   toast(r0(kcalOf(cur)*m)+' kcal added');
+  openPick(); // back to the list to keep adding to this meal
 };
-$('fab').onclick=()=>{$('pickSearch').value='';renderPick();sheet('sheetPick');setTimeout(()=>$('pickSearch').focus(),300);};
+
+/* ================= add flow ================= */
+let activeMeal=null;
+function openPick(){
+  const m=meals().find(x=>x.id===activeMeal);
+  $('pickTitle').textContent=m?('Add to '+m.name):'Add entry';
+  $('pickSearch').value='';renderPick();sheet('sheetPick');
+}
+function startAddToMeal(mid){activeMeal=mid;openPick();setTimeout(()=>$('pickSearch').focus(),300);}
+$('pickDone').onclick=closeSheet;
+$('fab').onclick=()=>{
+  const ms=meals();
+  if(!ms.length){toast('Add meals in Setup first');document.querySelector('nav button[data-v="set"]').click();return;}
+  if(ms.length===1){startAddToMeal(ms[0].id);return;}
+  renderMealChoose();sheet('sheetMeal');
+};
+function renderMealChoose(){
+  $('mealChooseList').innerHTML=meals().map(m=>{
+    const got=sumEntries(entriesOfMeal(m.id)),tg=mealTarget(m);
+    return `<div class="pick" data-mc="${m.id}"><div><div class="pick-n">${esc(m.name)}</div><div class="pick-s">${r0(got.k)} / ${tg.kcal} kcal so far</div></div><div class="pick-k">&rarr;</div></div>`;
+  }).join('');
+  $('mealChooseList').querySelectorAll('[data-mc]').forEach(el=>el.onclick=()=>{closeSheet();startAddToMeal(el.dataset.mc);});
+}
+
+/* ================= meal detail ================= */
+let detailMeal=null;
+function openMealDetail(mid){
+  detailMeal=mid;
+  const m=meals().find(x=>x.id===mid);
+  const isUn=mid==='__unsorted';
+  $('mdTitle').textContent=isUn?'Unsorted':(m?m.name:'Meal');
+  const list=isUn?(S.entries[day]||[]).filter(e=>{const ids=meals().map(x=>x.id);return !e.meal||ids.indexOf(e.meal)<0;}):entriesOfMeal(mid);
+  const got=sumEntries(list);
+  if(isUn){$('mdTarget').textContent=list.length?`${r0(got.k)} kcal · not assigned to a meal`:'';}
+  else if(m){const tg=mealTarget(m);$('mdTarget').textContent=`${r0(got.k)} / ${tg.kcal} kcal · target ${tg.p} P  ${tg.c} C  ${tg.f} F`;}
+  $('mdItems').innerHTML=list.length?list.map(e=>`<div class="entry"><div class="entry-l"><div class="entry-n">${esc(e.name)}</div><div class="entry-s">${r0(e.g)} g &nbsp;&middot;&nbsp; P ${r1(e.p)} &nbsp; C ${r1(e.c)} &nbsp; F ${r1(e.f)}</div></div><div class="entry-r"><span class="entry-k">${r0(e.k)}</span><button class="del" data-mdel="${e.id}">&times;</button></div></div>`).join(''):`<p class="empty">Nothing here yet.</p>`;
+  $('mdItems').querySelectorAll('[data-mdel]').forEach(b=>b.onclick=()=>{deleteEntry(day,b.dataset.mdel);renderToday();openMealDetail(mid);});
+  // action buttons visibility
+  const real=!isUn&&!!m;
+  $('mdAdd').style.display=real?'block':'none';
+  $('mdTemplate').style.display=real&&templates().length?'block':'none';
+  $('mdSaveTpl').style.display=real&&list.length?'block':'none';
+  $('mdCopy').style.display=list.length?'block':'none';
+  $('mdClear').style.display=list.length?'block':'none';
+  sheet('sheetMealDetail');
+}
+$('mdAdd').onclick=()=>{closeSheet();startAddToMeal(detailMeal);};
+$('mdClear').onclick=()=>{
+  const list=detailMeal==='__unsorted'?(S.entries[day]||[]).filter(e=>{const ids=meals().map(x=>x.id);return !e.meal||ids.indexOf(e.meal)<0;}):entriesOfMeal(detailMeal);
+  if(!list.length)return;
+  if(!confirm('Clear all items from this meal?'))return;
+  list.slice().forEach(e=>deleteEntry(day,e.id));renderToday();closeSheet();
+};
+$('mdCopy').onclick=()=>{
+  const src=detailMeal;
+  const opts=meals().filter(m=>m.id!==src).map(m=>({label:m.name,fn:()=>{
+    const list=src==='__unsorted'?(S.entries[day]||[]).filter(e=>{const ids=meals().map(x=>x.id);return !e.meal||ids.indexOf(e.meal)<0;}):entriesOfMeal(src);
+    list.forEach(e=>addEntry({id:uid(),day,name:e.name,g:e.g,k:e.k,p:e.p,c:e.c,f:e.f,meal:m.id}));
+    renderToday();toast('Copied to '+m.name);
+  }}));
+  if(!opts.length){toast('No other meal to copy to');return;}
+  chooser('Copy to which meal?',opts);
+};
+$('mdSaveTpl').onclick=()=>{
+  const list=entriesOfMeal(detailMeal);if(!list.length)return;
+  const m=meals().find(x=>x.id===detailMeal);
+  askName('Template name',m?m.name:'',nm=>{
+    const items=list.map(e=>({name:e.name,g:e.g,k:e.k,p:e.p,c:e.c,f:e.f}));
+    const tpls=templates().slice();tpls.push({id:uid(),name:nm,items});saveTemplates(tpls);
+    toast('Saved template “'+nm+'”');
+  });
+};
+$('mdTemplate').onclick=()=>{
+  const opts=templates().map(t=>({label:t.name+'  ·  '+t.items.length+' items',fn:()=>{
+    t.items.forEach(it=>addEntry({id:uid(),day,name:it.name,g:it.g,k:it.k,p:it.p,c:it.c,f:it.f,meal:detailMeal}));
+    renderToday();toast('Added '+t.name);openMealDetail(detailMeal);
+  }}));
+  if(!opts.length){toast('No templates saved yet');return;}
+  chooser('Add from template',opts);
+};
+
+/* ================= generic chooser + name sheet ================= */
+function chooser(title,opts){
+  $('chTitle').textContent=title;
+  $('chList').innerHTML=opts.map((o,i)=>`<div class="pick" data-ch="${i}"><div class="pick-n">${esc(o.label)}</div><div class="pick-k">&rarr;</div></div>`).join('');
+  $('chList').querySelectorAll('[data-ch]').forEach(el=>el.onclick=()=>{const o=opts[+el.dataset.ch];closeSheet();o.fn();});
+  sheet('sheetChoose');
+}
+let nameCb=null;
+function askName(title,initial,cb){
+  $('nmTitle').textContent=title;$('nmInput').value=initial||'';nameCb=cb;
+  sheet('sheetName');setTimeout(()=>$('nmInput').focus(),300);
+}
+$('nmSave').onclick=()=>{const v=$('nmInput').value.trim();if(!v){toast('Type a name');return;}const cb=nameCb;nameCb=null;closeSheet();if(cb)cb(v);};
 
 /* ================= barcode (ZXing — works on iOS Safari) ================= */
 let scanning=false,scanTarget='pick',reader=null,zxingP=null;
@@ -706,6 +918,7 @@ async function onBarcode(code){
   scanning=false;
   const known=S.foods.find(f=>f.bar===code);
   if(known){stopScan();if(scanTarget==='pick'){closeSheet();openPortion(known);}else openFood(known);return;}
+  foodFromAdd=(scanTarget==='pick');
   $('scanMsg').textContent='Looking up '+code;
   let pre={bar:code};
   try{
@@ -736,6 +949,73 @@ function renderSet(){
   recalcKcal();
   $('setWho').textContent=(S.profile&&S.profile.name)||'—';
   $('whoLabel').textContent=(S.profile&&S.profile.name)||'';
+  mealDraft=meals().map(m=>({id:m.id,name:m.name,p:+m.p||0,c:+m.c||0,f:+m.f||0}));
+  renderMealEditor();
+  renderTplList();
+}
+
+/* ---- meal editor (works on a draft, saved on Save) ---- */
+let mealDraft=[];
+function renderMealEditor(){
+  $('mealEdCount').textContent=mealDraft.length;
+  $('mealEditor').innerHTML=mealDraft.map((m,i)=>`
+    <div class="medrow">
+      <div>
+        <input class="mname" data-i="${i}" data-k="name" value="${esc(m.name)}" placeholder="Meal name">
+        <div class="macs">
+          <div><label>Prot</label><input type="number" inputmode="numeric" data-i="${i}" data-k="p" value="${m.p}"></div>
+          <div><label>Carb</label><input type="number" inputmode="numeric" data-i="${i}" data-k="c" value="${m.c}"></div>
+          <div><label>Fat</label><input type="number" inputmode="numeric" data-i="${i}" data-k="f" value="${m.f}"></div>
+        </div>
+        <div class="medcal">${kcalFromMacros(m.p,m.c,m.f)} kcal</div>
+      </div>
+      <button class="rmv" data-rm="${i}">&times;</button>
+    </div>`).join('');
+  $('mealEditor').querySelectorAll('input').forEach(inp=>inp.oninput=()=>{
+    const i=+inp.dataset.i,k=inp.dataset.k;
+    mealDraft[i][k]=k==='name'?inp.value:(parseFloat(inp.value)||0);
+    if(k!=='name'){inp.closest('.medrow').querySelector('.medcal').textContent=kcalFromMacros(mealDraft[i].p,mealDraft[i].c,mealDraft[i].f)+' kcal';}
+    updateMealSum();
+  });
+  $('mealEditor').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{
+    if(mealDraft.length<=1){toast('Keep at least one meal');return;}
+    mealDraft.splice(+b.dataset.rm,1);renderMealEditor();
+  });
+  $('addMealRow').disabled=mealDraft.length>=10;
+  updateMealSum();
+}
+function updateMealSum(){
+  const s=mealDraft.reduce((a,m)=>{a.p+=+m.p||0;a.c+=+m.c||0;a.f+=+m.f||0;return a;},{p:0,c:0,f:0});
+  const g=targets();
+  const ok=s.p===g.p&&s.c===g.c&&s.f===g.f;
+  $('mealSum').innerHTML=`Distributed: ${r0(s.p)} P · ${r0(s.c)} C · ${r0(s.f)} F &nbsp;(${kcalFromMacros(s.p,s.c,s.f)} kcal)<br>Daily target: ${g.p} P · ${g.c} C · ${g.f} F ${ok?'· matches ✓':'· doesn’t have to match'}`;
+}
+$('addMealRow').onclick=()=>{
+  if(mealDraft.length>=10)return;
+  const g=targets(),n=mealDraft.length+1;
+  mealDraft.push({id:uid(),name:DEFAULT_NAMES[mealDraft.length]||('Meal '+n),p:0,c:0,f:0});
+  renderMealEditor();
+};
+$('splitEqual').onclick=()=>{
+  const g=targets(),n=mealDraft.length||1;
+  mealDraft.forEach(m=>{m.p=Math.round(g.p/n);m.c=Math.round(g.c/n);m.f=Math.round(g.f/n);});
+  renderMealEditor();toast('Split evenly across '+n+' meals');
+};
+$('saveMeals').onclick=()=>{
+  for(const m of mealDraft){if(!m.name.trim()){toast('Every meal needs a name');return;}}
+  saveMeals(mealDraft.map(m=>({id:m.id,name:m.name.trim(),p:+m.p||0,c:+m.c||0,f:+m.f||0})));
+  toast('Meals saved');renderToday();
+};
+
+/* ---- templates list ---- */
+function renderTplList(){
+  const tpls=templates();
+  $('tplCount').textContent=tpls.length;
+  $('tplList').innerHTML=tpls.length?tpls.map(t=>`<div class="entry"><div class="entry-l"><div class="entry-n">${esc(t.name)}</div><div class="entry-s">${t.items.length} item${t.items.length>1?'s':''}</div></div><div class="entry-r"><button class="del" data-tdel="${t.id}">&times;</button></div></div>`).join(''):`<p class="empty">No templates yet. Open a meal on Today and “Save meal as template”.</p>`;
+  $('tplList').querySelectorAll('[data-tdel]').forEach(b=>b.onclick=()=>{
+    if(!confirm('Delete this template?'))return;
+    saveTemplates(templates().filter(t=>t.id!==b.dataset.tdel));renderTplList();
+  });
 }
 $('saveTargets').onclick=()=>{
   const n=(id,d)=>{const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:d;};
@@ -804,7 +1084,8 @@ window.addEventListener('online',()=>{flush().then(pull);});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)pull();});
 
 function boot(){
-  if(!S.profile)S.profile={id:CFG.pid,name:'',kcal:2000,p:150,c:200,f:65,w:null};
+  if(!S.profile)S.profile={id:CFG.pid,name:'',kcal:2000,p:150,c:200,f:65,w:null,meals:null,templates:null};
+  ensureMeals();
   render();pull();
 }
 
