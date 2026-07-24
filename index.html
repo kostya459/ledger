@@ -49,9 +49,12 @@ section:last-child{border-bottom:none}
 .rule-name{font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
 .rule-fig{font-family:‘IBM Plex Mono’,monospace;font-size:13px;font-variant-numeric:tabular-nums}
 .rule-fig b{font-weight:600}.rule-fig span{color:var(–dim)}
-.track{height:3px;background:var(–rule);position:relative;overflow:visible}
-.fill{height:3px;background:var(–ink);transition:width .35s cubic-bezier(.2,.7,.3,1);max-width:100%}
+.track{height:4px;background:var(–rule);position:relative;overflow:visible;border-radius:2px}
+.fill{height:4px;background:var(–ink);transition:width .35s cubic-bezier(.2,.7,.3,1);max-width:100%;border-radius:2px}
 .fill.over{background:var(–mark)}
+.btn:active{transform:scale(.99);opacity:.9}
+.mcard:active{background:rgba(140,58,43,.03)}
+.chip:active,.suggestbtn:active{opacity:.6}
 .tick{position:absolute;top:-4px;width:1.5px;height:11px;background:var(–ink);opacity:.5}
 
 .kcal{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2px}
@@ -77,8 +80,8 @@ section:last-child{border-bottom:none}
 .mcard-k{font-family:‘IBM Plex Mono’,monospace;font-size:12px;font-variant-numeric:tabular-nums;flex-shrink:0}
 .mcard-k b{font-weight:600}.mcard-k span{color:var(–dim)}
 .mcard-k.over b{color:var(–mark)}
-.mtrack{height:3px;background:var(–rule);position:relative;overflow:visible;margin-bottom:9px}
-.mtrack .fill{height:3px}
+.mtrack{height:4px;background:var(–rule);position:relative;overflow:visible;margin-bottom:9px;border-radius:2px}
+.mtrack .fill{height:4px;border-radius:2px}
 .mmac{display:flex;gap:14px;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.04em;color:var(–dim);text-transform:uppercase}
 .mmac b{color:var(–ink);font-weight:500;font-variant-numeric:tabular-nums}
 .mcard-empty{font-family:‘IBM Plex Mono’,monospace;font-size:10.5px;color:var(–dim);letter-spacing:.04em}
@@ -91,11 +94,13 @@ section:last-child{border-bottom:none}
 .medrow .rmv{background:none;border:none;color:var(–mark);font-size:20px;cursor:pointer;padding:0 2px;line-height:1;align-self:center}
 .medcal{font-family:‘IBM Plex Mono’,monospace;font-size:9px;color:var(–dim);text-align:right;margin-top:4px;letter-spacing:.08em}
 
-.suggestbtn{margin-top:10px;width:100%;padding:9px;border:1.5px solid var(–ink);background:transparent;border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;color:var(–ink)}
-.chk{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px dotted var(–rule);cursor:pointer}
-.chk .box{width:20px;height:20px;border:1.5px solid var(–rule);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(–paper)}
-.chk.on .box{background:var(–ink);border-color:var(–ink)}
+.suggestbtn{margin-top:11px;width:100%;padding:8px;border:none;border-top:1px solid var(–rule);background:transparent;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;color:var(–mark)}
+.chk{display:flex;align-items:center;gap:11px;padding:11px 12px;border-bottom:1px dotted var(–rule);cursor:pointer;margin:0 -12px;border-radius:8px}
+.chk.on{background:rgba(140,58,43,.08)}
+.chk .box{width:22px;height:22px;border:1.5px solid var(–rule);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(–paper);transition:background .12s}
+.chk.on .box{background:var(–mark);border-color:var(–mark)}
 .chk-n{font-size:15px;flex:1;min-width:0}
+.chk.on .chk-n{font-weight:600}
 .chk-s{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–dim);letter-spacing:.05em;margin-top:1px}
 .selbar{display:flex;justify-content:space-between;align-items:center;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(–dim);margin-bottom:8px}
 .selbar button{background:none;border:none;color:var(–mark);font-family:inherit;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;padding:0}
@@ -138,14 +143,15 @@ nav button.on::after{content:’’;position:absolute;top:0;left:50%;transform:t
 
 .fab{position:fixed;right:18px;bottom:calc(78px + var(–safe-b));z-index:25;width:54px;height:54px;border-radius:50%;border:1.5px solid var(–ink);background:var(–ink);color:var(–paper);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 3px 14px rgba(18,16,14,.28);font-family:‘IBM Plex Mono’,monospace;padding-bottom:3px}
 
-.scrim{position:fixed;inset:0;background:rgba(18,16,14,.42);z-index:40;opacity:0;pointer-events:none;transition:opacity .22s}
+.scrim{position:fixed;inset:0;background:rgba(18,16,14,.55);z-index:40;opacity:0;pointer-events:none;transition:opacity .22s}
 .scrim.on{opacity:1;pointer-events:auto}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(–paper);border-top:1.5px solid var(–ink);border-radius:var(–r) var(–r) 0 0;transform:translateY(101%);transition:transform .28s cubic-bezier(.2,.8,.25,1);max-height:92vh;display:flex;flex-direction:column;padding-bottom:var(–safe-b)}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(–paper);border-top:1.5px solid var(–ink);border-radius:16px 16px 0 0;transform:translateY(101%);transition:transform .28s cubic-bezier(.2,.8,.25,1);max-height:90vh;display:flex;flex-direction:column;padding-bottom:var(–safe-b);overflow:hidden;box-shadow:0 -10px 34px rgba(18,16,14,.28)}
 .sheet.on{transform:translateY(0)}
-.sheet-h{padding:16px 18px 12px;border-bottom:1px solid var(–rule);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sheet::before{content:’’;position:absolute;top:8px;left:50%;transform:translateX(-50%);width:36px;height:4px;border-radius:2px;background:var(–rule);z-index:2}
+.sheet-h{padding:20px 18px 12px;border-bottom:1px solid var(–rule);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .sheet-h h2{margin:0;font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
-.sheet-h button{background:none;border:none;font-size:22px;color:var(–dim);cursor:pointer;line-height:1;padding:0 2px}
-.sheet-b{padding:16px 18px 22px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.sheet-h button{background:none;border:none;font-size:24px;color:var(–dim);cursor:pointer;line-height:1;padding:0 2px}
+.sheet-b{padding:16px 18px 22px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;min-height:0}
 
 label{display:block;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(–dim);margin:0 0 6px}
 input{width:100%;padding:11px 12px;border:1.5px solid var(–rule);background:transparent;border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:16px;color:var(–ink);-webkit-appearance:none}
@@ -411,7 +417,7 @@ textarea:focus{outline:none;border-color:var(–ink)}
     <p class="hint" id="sgTarget" style="margin-top:0"></p>
     <div class="selbar"><span>What do you have? &mdash; <span id="sgCount">0</span> selected</span><button id="sgClear">clear</button></div>
     <div class="search"><input id="sgSearch" placeholder="Search your foods" autocomplete="off"></div>
-    <div id="sgList" style="max-height:38vh;overflow-y:auto"></div>
+    <div id="sgList"></div>
     <div class="field" style="margin-top:14px"><label>Note &mdash; optional</label><input id="sgNote" placeholder="e.g. quick, no oven, extra spicy" autocomplete="off"></div>
     <button class="btn" id="sgAsk">Ask Claude</button>
     <p class="hint" id="sgHint"></p>
