@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -22,161 +23,192 @@ html,body{margin:0;padding:0;height:100%}
 body{background:var(--paper);color:var(--ink);font-family:'Bitter',Georgia,serif;font-size:16px;line-height:1.45;overscroll-behavior-y:none;-webkit-font-smoothing:antialiased}
 .mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
 
-#app{padding-top:var(--safe-t);padding-bottom:calc(64px + var(--safe-b));min-height:100%}
-header{padding:14px 18px 10px;border-bottom:1.5px solid var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:12px;position:sticky;top:var(--safe-t);background:var(--paper);z-index:20}
+#app{padding-top:var(–safe-t);padding-bottom:calc(64px + var(–safe-b));min-height:100%}
+header{padding:14px 18px 10px;border-bottom:1.5px solid var(–ink);display:flex;align-items:baseline;justify-content:space-between;gap:12px;position:sticky;top:var(–safe-t);background:var(–paper);z-index:20}
 .brand{display:flex;align-items:center;gap:9px;min-width:0}
-header h1{font-size:15px;font-weight:700;margin:0;letter-spacing:.14em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace}
-.who{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--good);flex-shrink:0}
-.dot.sync{background:var(--dim);animation:pulse 1s infinite}
-.dot.off{background:var(--mark)}
+header h1{font-size:15px;font-weight:700;margin:0;letter-spacing:.14em;text-transform:uppercase;font-family:‘IBM Plex Mono’,monospace}
+.who{font-family:‘IBM Plex Mono’,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(–dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(–good);flex-shrink:0}
+.dot.sync{background:var(–dim);animation:pulse 1s infinite}
+.dot.off{background:var(–mark)}
 @keyframes pulse{50%{opacity:.3}}
 .datenav{display:flex;align-items:center;gap:2px}
-.datenav button{background:none;border:none;color:var(--ink);font-size:17px;padding:4px 9px;cursor:pointer;font-family:'IBM Plex Mono',monospace;line-height:1}
+.datenav button{background:none;border:none;color:var(–ink);font-size:17px;padding:4px 9px;cursor:pointer;font-family:‘IBM Plex Mono’,monospace;line-height:1}
 .datenav button:disabled{opacity:.25}
-.datelabel{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;min-width:92px;text-align:center;text-transform:uppercase}
+.datelabel{font-family:‘IBM Plex Mono’,monospace;font-size:12px;letter-spacing:.06em;min-width:92px;text-align:center;text-transform:uppercase}
 main{padding:0 18px}
-section{padding:18px 0;border-bottom:1px solid var(--rule)}
+section{padding:18px 0;border-bottom:1px solid var(–rule)}
 section:last-child{border-bottom:none}
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin:0 0 12px;display:flex;justify-content:space-between;align-items:center}
-.eyebrow button{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;background:none;border:none;color:var(--mark);text-transform:uppercase;cursor:pointer;padding:2px 0}
+.eyebrow{font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(–dim);margin:0 0 12px;display:flex;justify-content:space-between;align-items:center}
+.eyebrow button{font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.12em;background:none;border:none;color:var(–mark);text-transform:uppercase;cursor:pointer;padding:2px 0}
 
 .rules{display:flex;flex-direction:column;gap:0}
-.rule-row{padding:11px 0;border-bottom:1px solid var(--rule)}
+.rule-row{padding:11px 0;border-bottom:1px solid var(–rule)}
 .rule-row:last-child{border-bottom:none}
 .rule-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
-.rule-name{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-.rule-fig{font-family:'IBM Plex Mono',monospace;font-size:13px;font-variant-numeric:tabular-nums}
-.rule-fig b{font-weight:600}.rule-fig span{color:var(--dim)}
-.track{height:3px;background:var(--rule);position:relative;overflow:visible}
-.fill{height:3px;background:var(--ink);transition:width .35s cubic-bezier(.2,.7,.3,1);max-width:100%}
-.fill.over{background:var(--mark)}
-.tick{position:absolute;top:-4px;width:1.5px;height:11px;background:var(--ink);opacity:.5}
+.rule-name{font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.rule-fig{font-family:‘IBM Plex Mono’,monospace;font-size:13px;font-variant-numeric:tabular-nums}
+.rule-fig b{font-weight:600}.rule-fig span{color:var(–dim)}
+.track{height:3px;background:var(–rule);position:relative;overflow:visible}
+.fill{height:3px;background:var(–ink);transition:width .35s cubic-bezier(.2,.7,.3,1);max-width:100%}
+.fill.over{background:var(–mark)}
+.tick{position:absolute;top:-4px;width:1.5px;height:11px;background:var(–ink);opacity:.5}
 
 .kcal{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2px}
-.kcal .big{font-family:'IBM Plex Mono',monospace;font-size:46px;font-weight:500;line-height:.9;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
-.kcal .big.over{color:var(--mark)}
-.kcal .rem{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);letter-spacing:.06em;line-height:1.5}
-.kcal .rem b{display:block;font-size:15px;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.kcal .big{font-family:‘IBM Plex Mono’,monospace;font-size:46px;font-weight:500;line-height:.9;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.kcal .big.over{color:var(–mark)}
+.kcal .rem{text-align:right;font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–dim);letter-spacing:.06em;line-height:1.5}
+.kcal .rem b{display:block;font-size:15px;color:var(–ink);font-weight:500;font-variant-numeric:tabular-nums}
 
-.entry{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px dotted var(--rule)}
+.entry{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px dotted var(–rule)}
 .entry:last-child{border-bottom:none}
 .entry-l{min-width:0;flex:1}
 .entry-n{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.entry-s{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--dim);letter-spacing:.05em;margin-top:2px}
+.entry-s{font-family:‘IBM Plex Mono’,monospace;font-size:10.5px;color:var(–dim);letter-spacing:.05em;margin-top:2px}
 .entry-r{display:flex;align-items:baseline;gap:10px;flex-shrink:0}
-.entry-k{font-family:'IBM Plex Mono',monospace;font-size:14px;font-variant-numeric:tabular-nums}
-.del{background:none;border:none;color:var(--rule);font-size:17px;padding:0 0 0 2px;cursor:pointer;line-height:1}
-.empty{font-style:italic;color:var(--dim);font-size:14px;padding:14px 0}
+.entry-k{font-family:‘IBM Plex Mono’,monospace;font-size:14px;font-variant-numeric:tabular-nums}
+.del{background:none;border:none;color:var(–rule);font-size:17px;padding:0 0 0 2px;cursor:pointer;line-height:1}
+.empty{font-style:italic;color:var(–dim);font-size:14px;padding:14px 0}
 
-.mcard{border:1.5px solid var(--rule);border-radius:var(--r);padding:13px 14px;margin-bottom:10px;cursor:pointer}
+.mcard{border:1.5px solid var(–rule);border-radius:var(–r);padding:13px 14px;margin-bottom:10px;cursor:pointer}
 .mcard.unsorted{border-style:dashed}
 .mcard-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:9px}
 .mcard-n{font-size:16px;font-weight:600}
-.mcard-k{font-family:'IBM Plex Mono',monospace;font-size:12px;font-variant-numeric:tabular-nums;flex-shrink:0}
-.mcard-k b{font-weight:600}.mcard-k span{color:var(--dim)}
-.mcard-k.over b{color:var(--mark)}
-.mtrack{height:3px;background:var(--rule);position:relative;overflow:visible;margin-bottom:9px}
+.mcard-k{font-family:‘IBM Plex Mono’,monospace;font-size:12px;font-variant-numeric:tabular-nums;flex-shrink:0}
+.mcard-k b{font-weight:600}.mcard-k span{color:var(–dim)}
+.mcard-k.over b{color:var(–mark)}
+.mtrack{height:3px;background:var(–rule);position:relative;overflow:visible;margin-bottom:9px}
 .mtrack .fill{height:3px}
-.mmac{display:flex;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.04em;color:var(--dim);text-transform:uppercase}
-.mmac b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
-.mcard-empty{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--dim);letter-spacing:.04em}
+.mmac{display:flex;gap:14px;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.04em;color:var(–dim);text-transform:uppercase}
+.mmac b{color:var(–ink);font-weight:500;font-variant-numeric:tabular-nums}
+.mcard-empty{font-family:‘IBM Plex Mono’,monospace;font-size:10.5px;color:var(–dim);letter-spacing:.04em}
 
-.medrow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;padding:10px 0;border-bottom:1px dotted var(--rule)}
+.medrow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;padding:10px 0;border-bottom:1px dotted var(–rule)}
 .medrow input.mname{margin-bottom:6px}
 .medrow .macs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .medrow .macs input{padding:8px 6px;font-size:14px;text-align:center}
 .medrow .macs label{font-size:8px;margin:0 0 3px;text-align:center}
-.medrow .rmv{background:none;border:none;color:var(--mark);font-size:20px;cursor:pointer;padding:0 2px;line-height:1;align-self:center}
-.medcal{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dim);text-align:right;margin-top:4px;letter-spacing:.08em}
+.medrow .rmv{background:none;border:none;color:var(–mark);font-size:20px;cursor:pointer;padding:0 2px;line-height:1;align-self:center}
+.medcal{font-family:‘IBM Plex Mono’,monospace;font-size:9px;color:var(–dim);text-align:right;margin-top:4px;letter-spacing:.08em}
+
+.suggestbtn{margin-top:10px;width:100%;padding:9px;border:1.5px solid var(–ink);background:transparent;border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;color:var(–ink)}
+.chk{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px dotted var(–rule);cursor:pointer}
+.chk .box{width:20px;height:20px;border:1.5px solid var(–rule);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(–paper)}
+.chk.on .box{background:var(–ink);border-color:var(–ink)}
+.chk-n{font-size:15px;flex:1;min-width:0}
+.chk-s{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–dim);letter-spacing:.05em;margin-top:1px}
+.selbar{display:flex;justify-content:space-between;align-items:center;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(–dim);margin-bottom:8px}
+.selbar button{background:none;border:none;color:var(–mark);font-family:inherit;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;padding:0}
+
+.pline{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:11px 0;border-bottom:1px dotted var(–rule)}
+.pline-n{font-size:15px;flex:1;min-width:0}
+.pline-g{font-family:‘IBM Plex Mono’,monospace;font-size:14px;font-variant-numeric:tabular-nums;flex-shrink:0}
+.pline input{width:74px;padding:7px 8px;font-size:15px;text-align:right}
+.pgram-u{font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–dim);margin-left:5px}
+.method{font-size:15px;line-height:1.6;margin:2px 0 16px;white-space:pre-wrap}
+.vbar{border:1.5px solid var(–rule);border-radius:var(–r);padding:12px 14px;margin:14px 0}
+.vbar.good{border-color:var(–good)}
+.vbar.amber{border-color:var(–mark)}
+.vbar-h{display:flex;justify-content:space-between;align-items:baseline;font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.vbar-h b{font-weight:600}
+.vbar.good .vbar-h b{color:var(–good)}
+.vbar.amber .vbar-h b{color:var(–mark)}
+.vrow{display:flex;gap:12px;font-family:‘IBM Plex Mono’,monospace;font-size:11px;color:var(–dim);letter-spacing:.03em}
+.vrow b{color:var(–ink);font-weight:500;font-variant-numeric:tabular-nums}
+.vrow .off{color:var(–mark)}
+.spin{width:26px;height:26px;border:2.5px solid var(–rule);border-top-color:var(–ink);border-radius:50%;animation:sp .8s linear infinite;margin:30px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.loadmsg{text-align:center;font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.08em;color:var(–dim);text-transform:uppercase}
 
 .wt{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px}
-.wt .now{font-family:'IBM Plex Mono',monospace;font-size:38px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.wt .unit{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--dim);padding-bottom:4px}
-.wt .delta{font-family:'IBM Plex Mono',monospace;font-size:11.5px;padding-bottom:5px;line-height:1.4;color:var(--dim)}
+.wt .now{font-family:‘IBM Plex Mono’,monospace;font-size:38px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.wt .unit{font-family:‘IBM Plex Mono’,monospace;font-size:13px;color:var(–dim);padding-bottom:4px}
+.wt .delta{font-family:‘IBM Plex Mono’,monospace;font-size:11.5px;padding-bottom:5px;line-height:1.4;color:var(–dim)}
 .wt .delta b{font-weight:500;font-variant-numeric:tabular-nums}
-.down{color:var(--good)}.up{color:var(--mark)}
+.down{color:var(–good)}.up{color:var(–mark)}
 #chart{width:100%;height:120px;display:block;margin-bottom:4px}
-.chartkey{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;display:flex;gap:14px}
-.chartkey i{display:inline-block;width:14px;height:0;border-top:2px solid var(--ink);vertical-align:middle;margin-right:5px;font-style:normal}
-.chartkey i.avg{border-top:2px dashed var(--mark)}
+.chartkey{font-family:‘IBM Plex Mono’,monospace;font-size:9.5px;color:var(–dim);letter-spacing:.1em;text-transform:uppercase;display:flex;gap:14px}
+.chartkey i{display:inline-block;width:14px;height:0;border-top:2px solid var(–ink);vertical-align:middle;margin-right:5px;font-style:normal}
+.chartkey i.avg{border-top:2px dashed var(–mark)}
 
-nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--paper);border-top:1.5px solid var(--ink);padding-bottom:var(--safe-b);display:flex}
-nav button{flex:1;background:none;border:none;padding:15px 4px 13px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);position:relative}
-nav button.on{color:var(--ink)}
-nav button.on::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:2.5px;background:var(--mark)}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(–paper);border-top:1.5px solid var(–ink);padding-bottom:var(–safe-b);display:flex}
+nav button{flex:1;background:none;border:none;padding:15px 4px 13px;cursor:pointer;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(–dim);position:relative}
+nav button.on{color:var(–ink)}
+nav button.on::after{content:’’;position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:2.5px;background:var(–mark)}
 
-.fab{position:fixed;right:18px;bottom:calc(78px + var(--safe-b));z-index:25;width:54px;height:54px;border-radius:50%;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 3px 14px rgba(18,16,14,.28);font-family:'IBM Plex Mono',monospace;padding-bottom:3px}
+.fab{position:fixed;right:18px;bottom:calc(78px + var(–safe-b));z-index:25;width:54px;height:54px;border-radius:50%;border:1.5px solid var(–ink);background:var(–ink);color:var(–paper);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 3px 14px rgba(18,16,14,.28);font-family:‘IBM Plex Mono’,monospace;padding-bottom:3px}
 
 .scrim{position:fixed;inset:0;background:rgba(18,16,14,.42);z-index:40;opacity:0;pointer-events:none;transition:opacity .22s}
 .scrim.on{opacity:1;pointer-events:auto}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--paper);border-top:1.5px solid var(--ink);border-radius:var(--r) var(--r) 0 0;transform:translateY(101%);transition:transform .28s cubic-bezier(.2,.8,.25,1);max-height:92vh;display:flex;flex-direction:column;padding-bottom:var(--safe-b)}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(–paper);border-top:1.5px solid var(–ink);border-radius:var(–r) var(–r) 0 0;transform:translateY(101%);transition:transform .28s cubic-bezier(.2,.8,.25,1);max-height:92vh;display:flex;flex-direction:column;padding-bottom:var(–safe-b)}
 .sheet.on{transform:translateY(0)}
-.sheet-h{padding:16px 18px 12px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.sheet-h h2{margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
-.sheet-h button{background:none;border:none;font-size:22px;color:var(--dim);cursor:pointer;line-height:1;padding:0 2px}
+.sheet-h{padding:16px 18px 12px;border-bottom:1px solid var(–rule);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sheet-h h2{margin:0;font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.sheet-h button{background:none;border:none;font-size:22px;color:var(–dim);cursor:pointer;line-height:1;padding:0 2px}
 .sheet-b{padding:16px 18px 22px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
-label{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0 0 6px}
-input{width:100%;padding:11px 12px;border:1.5px solid var(--rule);background:transparent;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--ink);-webkit-appearance:none}
-input:focus{outline:none;border-color:var(--ink)}
-input[readonly]{color:var(--dim);border-style:dashed;background:rgba(201,191,174,.12)}
-textarea{width:100%;padding:11px 12px;border:1.5px solid var(--rule);background:transparent;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink);min-height:80px;resize:vertical}
-textarea:focus{outline:none;border-color:var(--ink)}
+label{display:block;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(–dim);margin:0 0 6px}
+input{width:100%;padding:11px 12px;border:1.5px solid var(–rule);background:transparent;border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:16px;color:var(–ink);-webkit-appearance:none}
+input:focus{outline:none;border-color:var(–ink)}
+input[readonly]{color:var(–dim);border-style:dashed;background:rgba(201,191,174,.12)}
+textarea{width:100%;padding:11px 12px;border:1.5px solid var(–rule);background:transparent;border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:12px;color:var(–ink);min-height:80px;resize:vertical}
+textarea:focus{outline:none;border-color:var(–ink)}
 .field{margin-bottom:14px}
 .grid4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn{width:100%;padding:14px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-weight:500}
-.btn.ghost{background:transparent;color:var(--ink)}
-.btn.danger{background:transparent;color:var(--mark);border-color:var(--mark)}
+.btn{width:100%;padding:14px;border:1.5px solid var(–ink);background:var(–ink);color:var(–paper);border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-weight:500}
+.btn.ghost{background:transparent;color:var(–ink)}
+.btn.danger{background:transparent;color:var(–mark);border-color:var(–mark)}
 .btn+.btn{margin-top:9px}
 .btn:disabled{opacity:.4}
-.hint{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--dim);margin:8px 0 0;line-height:1.6}
+.hint{font-family:‘IBM Plex Mono’,monospace;font-size:10.5px;color:var(–dim);margin:8px 0 0;line-height:1.6}
 
 .search{margin-bottom:12px;display:flex;gap:8px}
 .search input{flex:1}
-.scanbtn{flex-shrink:0;width:48px;border:1.5px solid var(--ink);background:transparent;border-radius:var(--r);font-size:19px;cursor:pointer;color:var(--ink);padding:0}
-.pick{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px dotted var(--rule);cursor:pointer}
+.scanbtn{flex-shrink:0;width:48px;border:1.5px solid var(–ink);background:transparent;border-radius:var(–r);font-size:19px;cursor:pointer;color:var(–ink);padding:0}
+.pick{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px dotted var(–rule);cursor:pointer}
 .pick-n{font-size:15px}
-.pick-s{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:.05em;margin-top:2px}
-.pick-k{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--dim);flex-shrink:0;font-variant-numeric:tabular-nums}
+.pick-s{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–dim);letter-spacing:.05em;margin-top:2px}
+.pick-k{font-family:‘IBM Plex Mono’,monospace;font-size:12px;color:var(–dim);flex-shrink:0;font-variant-numeric:tabular-nums}
 
 .portion{text-align:center;padding:8px 0 4px}
-.portion input{font-size:40px;text-align:center;border:none;border-bottom:1.5px solid var(--ink);border-radius:0;padding:6px 0;font-weight:500;letter-spacing:-.02em}
+.portion input{font-size:40px;text-align:center;border:none;border-bottom:1.5px solid var(–ink);border-radius:0;padding:6px 0;font-weight:500;letter-spacing:-.02em}
 .chips{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:14px 0 18px}
-.chip{padding:7px 13px;border:1.5px solid var(--rule);border-radius:var(--r);background:transparent;font-family:'IBM Plex Mono',monospace;font-size:11.5px;cursor:pointer;color:var(--ink)}
-.preview{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
-.preview div{background:var(--paper);padding:11px 4px;text-align:center}
-.preview span{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
-.preview b{display:block;font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:500;margin-top:3px;font-variant-numeric:tabular-nums}
+.chip{padding:7px 13px;border:1.5px solid var(–rule);border-radius:var(–r);background:transparent;font-family:‘IBM Plex Mono’,monospace;font-size:11.5px;cursor:pointer;color:var(–ink)}
+.preview{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(–rule);border:1px solid var(–rule);border-radius:var(–r);overflow:hidden;margin-bottom:18px}
+.preview div{background:var(–paper);padding:11px 4px;text-align:center}
+.preview span{display:block;font-family:‘IBM Plex Mono’,monospace;font-size:9px;letter-spacing:.12em;color:var(–dim);text-transform:uppercase}
+.preview b{display:block;font-family:‘IBM Plex Mono’,monospace;font-size:16px;font-weight:500;margin-top:3px;font-variant-numeric:tabular-nums}
 
 #scanwrap{position:fixed;inset:0;z-index:60;background:#000;display:none}
 #scanwrap.on{display:block}
 #cam{width:100%;height:100%;object-fit:cover}
-.scanui{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:calc(20px + var(--safe-t)) 20px calc(30px + var(--safe-b))}
-.scanbox{width:78%;max-width:300px;height:150px;border:2px solid rgba(237,231,220,.85);border-radius:var(--r);align-self:center}
-.scanmsg{color:#EDE7DC;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-align:center;text-transform:uppercase}
-.scanclose{background:rgba(237,231,220,.14);border:1.5px solid rgba(237,231,220,.6);color:#EDE7DC;padding:12px 26px;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.scanui{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:calc(20px + var(–safe-t)) 20px calc(30px + var(–safe-b))}
+.scanbox{width:78%;max-width:300px;height:150px;border:2px solid rgba(237,231,220,.85);border-radius:var(–r);align-self:center}
+.scanmsg{color:#EDE7DC;font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.1em;text-align:center;text-transform:uppercase}
+.scanclose{background:rgba(237,231,220,.14);border:1.5px solid rgba(237,231,220,.6);color:#EDE7DC;padding:12px 26px;border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
 
-.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(90px + var(--safe-b));background:var(--ink);color:var(--paper);padding:11px 20px;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;z-index:70;opacity:0;transition:all .25s;pointer-events:none;max-width:86vw;text-align:center}
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(90px + var(–safe-b));background:var(–ink);color:var(–paper);padding:11px 20px;border-radius:var(–r);font-family:‘IBM Plex Mono’,monospace;font-size:11px;letter-spacing:.08em;z-index:70;opacity:0;transition:all .25s;pointer-events:none;max-width:86vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .hide{display:none!important}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-/* ---------- connect gate ---------- */
-#gate{position:fixed;inset:0;z-index:80;background:var(--paper);overflow-y:auto;padding:calc(40px + var(--safe-t)) 22px calc(40px + var(--safe-b));display:none}
+/* ––––– connect gate ––––– */
+#gate{position:fixed;inset:0;z-index:80;background:var(–paper);overflow-y:auto;padding:calc(40px + var(–safe-t)) 22px calc(40px + var(–safe-b));display:none}
 #gate.on{display:block}
-#gate h1{font-family:'IBM Plex Mono',monospace;font-size:16px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px}
-#gate .lede{font-size:15px;color:var(--dim);margin:0 0 26px;line-height:1.5}
-#gate .step{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mark);margin:0 0 14px}
-.profcard{display:flex;justify-content:space-between;align-items:center;padding:15px 16px;border:1.5px solid var(--rule);border-radius:var(--r);margin-bottom:10px;cursor:pointer}
-.profcard b{font-size:16px;font-family:'Bitter',serif;font-weight:600}
-.profcard span{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim)}
-.or{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:20px 0}
+#gate h1{font-family:‘IBM Plex Mono’,monospace;font-size:16px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px}
+#gate .lede{font-size:15px;color:var(–dim);margin:0 0 26px;line-height:1.5}
+#gate .step{font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(–mark);margin:0 0 14px}
+.profcard{display:flex;justify-content:space-between;align-items:center;padding:15px 16px;border:1.5px solid var(–rule);border-radius:var(–r);margin-bottom:10px;cursor:pointer}
+.profcard b{font-size:16px;font-family:‘Bitter’,serif;font-weight:600}
+.profcard span{font-family:‘IBM Plex Mono’,monospace;font-size:10px;color:var(–dim)}
+.or{text-align:center;font-family:‘IBM Plex Mono’,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(–dim);margin:20px 0}
 </style>
+
 </head>
 <body>
 
 <!-- ============ CONNECT GATE ============ -->
+
 <div id="gate">
   <div id="gate-connect">
     <h1>Ledger</h1>
@@ -207,6 +239,7 @@ textarea:focus{outline:none;border-color:var(--ink)}
 </div>
 
 <!-- ============ APP ============ -->
+
 <div id="app" class="hide">
   <header>
     <div class="brand">
@@ -240,68 +273,83 @@ textarea:focus{outline:none;border-color:var(--ink)}
       </section>
     </div>
 
-    <div id="v-weight" class="hide">
-      <section>
-        <p class="eyebrow">Weight</p>
-        <div class="wt"><div class="now mono" id="wNow">&mdash;</div><div class="unit mono">kg</div><div class="delta mono" id="wDelta"></div></div>
-        <canvas id="chart"></canvas>
-        <div class="chartkey"><span><i></i>daily</span><span><i class="avg"></i>7&#8209;day average</span></div>
-      </section>
-      <section>
-        <p class="eyebrow">Log for <span id="wDateLabel"></span></p>
-        <div class="field"><input type="number" inputmode="decimal" step="0.1" id="wInput" placeholder="0.0"></div>
-        <button class="btn" id="wSave">Save weight</button>
-      </section>
-      <section><p class="eyebrow">History</p><div id="wHistory"></div></section>
-    </div>
+```
+<div id="v-weight" class="hide">
+  <section>
+    <p class="eyebrow">Weight</p>
+    <div class="wt"><div class="now mono" id="wNow">&mdash;</div><div class="unit mono">kg</div><div class="delta mono" id="wDelta"></div></div>
+    <canvas id="chart"></canvas>
+    <div class="chartkey"><span><i></i>daily</span><span><i class="avg"></i>7&#8209;day average</span></div>
+  </section>
+  <section>
+    <p class="eyebrow">Log for <span id="wDateLabel"></span></p>
+    <div class="field"><input type="number" inputmode="decimal" step="0.1" id="wInput" placeholder="0.0"></div>
+    <button class="btn" id="wSave">Save weight</button>
+  </section>
+  <section><p class="eyebrow">History</p><div id="wHistory"></div></section>
+</div>
 
-    <div id="v-foods" class="hide">
-      <section>
-        <p class="eyebrow"><span>Shared library &mdash; <span id="libCount">0</span></span><button id="addFoodBtn">+ new food</button></p>
-        <div class="search"><input id="libSearch" placeholder="Search" autocomplete="off"><button class="scanbtn" id="libScan">&#9707;</button></div>
-        <div id="libList"></div>
-      </section>
-    </div>
+<div id="v-foods" class="hide">
+  <section>
+    <p class="eyebrow"><span>Shared library &mdash; <span id="libCount">0</span></span><button id="addFoodBtn">+ new food</button></p>
+    <div class="search"><input id="libSearch" placeholder="Search" autocomplete="off"><button class="scanbtn" id="libScan">&#9707;</button></div>
+    <div id="libList"></div>
+  </section>
+</div>
 
-    <div id="v-set" class="hide">
-      <section>
-        <p class="eyebrow">Daily targets</p>
-        <div class="grid4">
-          <div class="field"><label>Protein g</label><input type="number" inputmode="numeric" id="tP"></div>
-          <div class="field"><label>Carbs g</label><input type="number" inputmode="numeric" id="tC"></div>
-          <div class="field"><label>Fat g</label><input type="number" inputmode="numeric" id="tF"></div>
-          <div class="field"><label>Weight goal kg</label><input type="number" inputmode="decimal" step="0.1" id="tW"></div>
-        </div>
-        <div class="field"><label>Calories &mdash; from macros</label><input type="number" id="tKcal" readonly></div>
-        <p class="hint" style="margin:-6px 0 14px">Calories update as you type: protein &times;4 + carbs &times;4 + fat &times;9.</p>
-        <button class="btn" id="saveTargets">Save targets</button>
-      </section>
-      <section>
-        <p class="eyebrow"><span>Meals &mdash; <span id="mealEdCount">0</span></span><button id="splitEqual">split equally</button></p>
-        <div id="mealEditor"></div>
-        <button class="btn ghost" id="addMealRow" style="margin-top:4px">+ add meal</button>
-        <p class="hint" id="mealSum"></p>
-        <button class="btn" id="saveMeals" style="margin-top:6px">Save meals</button>
-      </section>
-      <section>
-        <p class="eyebrow">Saved templates &mdash; <span id="tplCount">0</span></p>
-        <div id="tplList"></div>
-      </section>
-      <section>
-        <p class="eyebrow">Shared space</p>
-        <p class="hint" style="margin-top:0">You are <b id="setWho" style="color:var(--ink)"></b>. Give the connection code below to the other person so they can join the same space.</p>
-        <button class="btn ghost" id="copyCode">Copy connection code</button>
-        <button class="btn ghost" id="switchPerson">Switch person</button>
-        <button class="btn danger" id="disconnect">Disconnect this phone</button>
-      </section>
-      <section>
-        <p class="eyebrow">Data</p>
-        <button class="btn ghost" id="exportBtn">Export backup</button>
-        <button class="btn ghost" id="importBtn">Import old app backup</button>
-        <input type="file" id="importFile" accept=".json" class="hide">
-        <p class="hint">Import pulls in data from the old local-only version and pushes it to the cloud under your profile. Foods go to the shared library.</p>
-      </section>
+<div id="v-set" class="hide">
+  <section>
+    <p class="eyebrow">Daily targets</p>
+    <div class="grid4">
+      <div class="field"><label>Protein g</label><input type="number" inputmode="numeric" id="tP"></div>
+      <div class="field"><label>Carbs g</label><input type="number" inputmode="numeric" id="tC"></div>
+      <div class="field"><label>Fat g</label><input type="number" inputmode="numeric" id="tF"></div>
+      <div class="field"><label>Weight goal kg</label><input type="number" inputmode="decimal" step="0.1" id="tW"></div>
     </div>
+    <div class="field"><label>Calories &mdash; from macros</label><input type="number" id="tKcal" readonly></div>
+    <p class="hint" style="margin:-6px 0 14px">Calories update as you type: protein &times;4 + carbs &times;4 + fat &times;9.</p>
+    <button class="btn" id="saveTargets">Save targets</button>
+  </section>
+  <section>
+    <p class="eyebrow">AI meal helper</p>
+    <div class="field"><label>Anthropic API key</label><input id="aiKey" placeholder="sk-ant-..." autocomplete="off" autocapitalize="off" type="password"></div>
+    <div class="field"><label>Model</label>
+      <select id="aiModel" style="width:100%;padding:11px 12px;border:1.5px solid var(--rule);background:transparent;border-radius:var(--r);font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ink)">
+        <option value="claude-sonnet-5">Sonnet 5 — best meals (default)</option>
+        <option value="claude-haiku-4-5-20251001">Haiku 4.5 — cheaper, simpler</option>
+      </select>
+    </div>
+    <button class="btn" id="saveAI">Save AI settings</button>
+    <p class="hint">Your key stays on this phone only — never in GitHub or the shared database. Get one at console.anthropic.com. Each suggestion costs roughly one cent.</p>
+  </section>
+  <section>
+    <p class="eyebrow"><span>Meals &mdash; <span id="mealEdCount">0</span></span><button id="splitEqual">split equally</button></p>
+    <div id="mealEditor"></div>
+    <button class="btn ghost" id="addMealRow" style="margin-top:4px">+ add meal</button>
+    <p class="hint" id="mealSum"></p>
+    <button class="btn" id="saveMeals" style="margin-top:6px">Save meals</button>
+  </section>
+  <section>
+    <p class="eyebrow">Saved templates &mdash; <span id="tplCount">0</span></p>
+    <div id="tplList"></div>
+  </section>
+  <section>
+    <p class="eyebrow">Shared space</p>
+    <p class="hint" style="margin-top:0">You are <b id="setWho" style="color:var(--ink)"></b>. Give the connection code below to the other person so they can join the same space.</p>
+    <button class="btn ghost" id="copyCode">Copy connection code</button>
+    <button class="btn ghost" id="switchPerson">Switch person</button>
+    <button class="btn danger" id="disconnect">Disconnect this phone</button>
+  </section>
+  <section>
+    <p class="eyebrow">Data</p>
+    <button class="btn ghost" id="exportBtn">Export backup</button>
+    <button class="btn ghost" id="importBtn">Import old app backup</button>
+    <input type="file" id="importFile" accept=".json" class="hide">
+    <p class="hint">Import pulls in data from the old local-only version and pushes it to the cloud under your profile. Foods go to the shared library.</p>
+  </section>
+</div>
+```
+
   </main>
 </div>
 
@@ -357,6 +405,43 @@ textarea:focus{outline:none;border-color:var(--ink)}
   </div>
 </div>
 
+<div class="sheet" id="sheetSuggest">
+  <div class="sheet-h"><h2 id="sgTitle">Suggest a meal</h2><button class="close">&times;</button></div>
+  <div class="sheet-b">
+    <p class="hint" id="sgTarget" style="margin-top:0"></p>
+    <div class="selbar"><span>What do you have? &mdash; <span id="sgCount">0</span> selected</span><button id="sgClear">clear</button></div>
+    <div class="search"><input id="sgSearch" placeholder="Search your foods" autocomplete="off"></div>
+    <div id="sgList" style="max-height:38vh;overflow-y:auto"></div>
+    <div class="field" style="margin-top:14px"><label>Note &mdash; optional</label><input id="sgNote" placeholder="e.g. quick, no oven, extra spicy" autocomplete="off"></div>
+    <button class="btn" id="sgAsk">Ask Claude</button>
+    <p class="hint" id="sgHint"></p>
+  </div>
+</div>
+
+<div class="sheet" id="sheetProposal">
+  <div class="sheet-h"><h2 id="prTitle">Suggestion</h2><button class="close">&times;</button></div>
+  <div class="sheet-b">
+    <div id="prLoading" class="hide"><div class="spin"></div><p class="loadmsg" id="prLoadMsg">Thinking about your meal&hellip;</p></div>
+    <div id="prError" class="hide"><p class="empty" id="prErrorMsg"></p><button class="btn ghost" id="prRetry">Try again</button></div>
+    <div id="prBody" class="hide">
+      <p class="method" id="prMethod"></p>
+      <div class="selbar"><span>Ingredients</span><button id="prEdit">edit grams</button></div>
+      <div id="prItems"></div>
+      <div class="vbar" id="prVbar">
+        <div class="vbar-h"><span id="prBandLabel">Result</span><b id="prKcal"></b></div>
+        <div class="vrow" id="prVrow"></div>
+      </div>
+      <button class="btn" id="prApprove">Approve &amp; log to meal</button>
+      <button class="btn ghost hide" id="prReset">Reset to Claude&rsquo;s version</button>
+      <button class="btn ghost" id="prRejectBtn">Reject &amp; ask again</button>
+      <div id="prRejectBox" class="hide" style="margin-top:12px">
+        <div class="field"><label>Why? (helps the next try)</label><input id="prReason" placeholder="e.g. too much rice, no fish" autocomplete="off"></div>
+        <button class="btn" id="prReasonSend">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="sheet" id="sheetPortion">
   <div class="sheet-h"><h2 id="portionName">Portion</h2><button class="close">&times;</button></div>
   <div class="sheet-b">
@@ -409,6 +494,14 @@ const CFG_KEY='ledger.cfg';
 let CFG={};
 try{CFG=JSON.parse(localStorage.getItem(CFG_KEY)||'{}');}catch(e){CFG={};}
 const saveCfg=()=>localStorage.setItem(CFG_KEY,JSON.stringify(CFG));
+
+/* AI settings + pantry: local to this phone only, never synced to Supabase */
+let AI={key:'',model:'claude-sonnet-5'};
+try{AI=Object.assign(AI,JSON.parse(localStorage.getItem('ledger.ai')||'{}'));}catch(e){}
+const saveAI=()=>localStorage.setItem('ledger.ai',JSON.stringify(AI));
+const pantryKey=()=>'ledger.pantry.'+(CFG.pid||'x');
+function loadPantry(){try{return new Set(JSON.parse(localStorage.getItem(pantryKey())||'[]'));}catch(e){return new Set();}}
+function savePantry(set){localStorage.setItem(pantryKey(),JSON.stringify([...set]));}
 
 const dflT={kcal:2000,p:150,c:200,f:65,w:null};
 let S={foods:[],profiles:[],profile:null,entries:{},weights:{},usage:{},pending:[]};
@@ -668,6 +761,7 @@ function renderMeals(){
         <span class="mcard-k${over?' over':''}"><b>${r0(got.k)}</b><span> / ${tg.kcal} kcal</span></span></div>
       <div class="mtrack"><div class="fill${over?' over':''}" style="width:${pct}%"></div><div class="tick" style="left:100%"></div></div>
       ${list.length?`<div class="mmac"><span><b>${r0(got.p)}</b>/${tg.p} P</span><span><b>${r0(got.c)}</b>/${tg.c} C</span><span><b>${r0(got.f)}</b>/${tg.f} F</span></div>`:`<div class="mcard-empty">Empty &middot; target ${tg.p} P &nbsp; ${tg.c} C &nbsp; ${tg.f} F</div>`}
+      <button class="suggestbtn" data-suggest="${m.id}">&#10022; Suggest a meal</button>
     </div>`;
   });
   // unsorted: entries whose meal id isn't in the meal list
@@ -681,6 +775,7 @@ function renderMeals(){
   }
   if(!ms.length&&!orphan.length)html=`<p class="empty">No meals set up yet. Add some in Setup, then tap + to fill them.</p>`;
   $('mealCards').innerHTML=html;
+  $('mealCards').querySelectorAll('[data-suggest]').forEach(el=>el.onclick=(e)=>{e.stopPropagation();openSuggest(el.dataset.suggest);});
   $('mealCards').querySelectorAll('[data-meal]').forEach(el=>el.onclick=()=>openMealDetail(el.dataset.meal));
 }
 $('clearDay').onclick=()=>{if(!(S.entries[day]||[]).length)return;if(confirm('Remove every entry for '+dateLabel().toLowerCase()+'?')){(S.entries[day]||[]).slice().forEach(e=>deleteEntry(day,e.id));renderToday();}};
@@ -937,6 +1032,234 @@ async function onBarcode(code){
   toast(pre.name?'Found — check the label':'Not in the database. Enter it once.');
 }
 
+/* ================= AI meal helper ================= */
+const MODEL_LABEL={'claude-sonnet-5':'Sonnet 5','claude-haiku-4-5-20251001':'Haiku 4.5'};
+let sgMeal=null, pantry=new Set(), prop=null;
+
+function openSuggest(mid){
+  if(!AI.key){toast('Add your API key in Setup first');document.querySelector('nav button[data-v="set"]').click();return;}
+  sgMeal=mid;
+  const m=meals().find(x=>x.id===mid);if(!m)return;
+  const tg=mealTarget(m);
+  $('sgTitle').textContent='Suggest — '+m.name;
+  $('sgTarget').textContent='Target: '+tg.kcal+' kcal · '+tg.p+' P  '+tg.c+' C  '+tg.f+' F';
+  pantry=loadPantry();
+  $('sgSearch').value='';$('sgNote').value='';$('sgHint').textContent='';
+  renderSgList();sheet('sheetSuggest');
+}
+function renderSgList(){
+  const q=$('sgSearch').value.trim().toLowerCase();
+  const list=S.foods.slice().sort((a,b)=>{
+    const pa=pantry.has(a.id)?0:1,pb=pantry.has(b.id)?0:1;
+    return pa-pb || (S.usage[b.id]||0)-(S.usage[a.id]||0) || a.name.localeCompare(b.name);
+  }).filter(f=>!q||f.name.toLowerCase().includes(q));
+  $('sgCount').textContent=pantry.size;
+  $('sgList').innerHTML=list.length?list.map(f=>`<div class="chk${pantry.has(f.id)?' on':''}" data-id="${f.id}"><div class="box">&#10003;</div><div><div class="chk-n">${esc(f.name)}</div><div class="chk-s">P ${f.p} &nbsp; C ${f.c} &nbsp; F ${f.f} &nbsp; per 100 g</div></div></div>`).join(''):`<p class="empty">${S.foods.length?'No match.':'Your library is empty — add foods first.'}</p>`;
+  $('sgList').querySelectorAll('[data-id]').forEach(el=>el.onclick=()=>{
+    const id=el.dataset.id;
+    if(pantry.has(id))pantry.delete(id);else pantry.add(id);
+    savePantry(pantry);renderSgList();
+  });
+}
+$('sgSearch').oninput=renderSgList;
+$('sgClear').onclick=()=>{pantry.clear();savePantry(pantry);renderSgList();};
+
+$('sgAsk').onclick=()=>{
+  if(pantry.size<2){toast('Pick at least two things you have');return;}
+  const m=meals().find(x=>x.id===sgMeal);
+  prop={mealId:sgMeal,meal:m,target:mealTarget(m),note:$('sgNote').value.trim(),history:[],items:[],base:[]};
+  closeSheet();openProposal();runProposal();
+};
+
+function openProposal(){
+  $('prTitle').textContent='Suggestion — '+(prop.meal?prop.meal.name:'meal');
+  $('prLoading').classList.remove('hide');$('prBody').classList.add('hide');$('prError').classList.add('hide');
+  $('prRejectBox').classList.add('hide');
+  sheet('sheetProposal');
+}
+
+/* ---- call Claude ---- */
+function pantryFoods(){return [...pantry].map(id=>S.foods.find(f=>f.id===id)).filter(Boolean);}
+function buildPrompt(){
+  const foods=pantryFoods();
+  let s='Available ingredients (macros per 100 g):\n';
+  foods.forEach(f=>{s+='- '+f.name+' — protein '+f.p+'g, carbs '+f.c+'g, fat '+f.f+'g\n';});
+  const t=prop.target;
+  s+='\nTarget for the "'+(prop.meal?prop.meal.name:'meal')+'": protein '+t.p+'g, carbs '+t.c+'g, fat '+t.f+'g (about '+t.kcal+' kcal).\n';
+  if(prop.note)s+='User note: '+prop.note+'\n';
+  if(prop.history.length){
+    s+='\nEarlier attempts the user rejected:\n';
+    prop.history.forEach((h,i)=>{s+=(i+1)+'. Dish "'+h.dish+'" — rejected because: '+h.reason+'\n';});
+    s+='Propose something meaningfully different that addresses the feedback.\n';
+  }
+  s+='\nChoose a subset of these ingredients (you need not use all) to make one coherent, tasty meal that gets close to the macro target. Give realistic gram amounts. Respond with JSON only.';
+  return s;
+}
+const AI_SYSTEM='You are a meal-planning assistant inside a macro-tracking app. You are given ingredients the user has at home (with macros per 100g) and a macro target for one meal. Propose ONE coherent, tasty dish.\n\nRules:\n- Use ONLY ingredients from the provided list. Never invent ingredients.\n- Give realistic portion sizes in grams.\n- Do NOT calculate or state macros or calories — the app computes those. Only give ingredient names and grams.\n- You do not have to use every ingredient; pick what makes a good dish near the target.\n- Write a clear, appetising method the user can cook from: a short paragraph or two, easy to read, no rigid step numbering needed.\n- Respond with ONLY valid JSON, no markdown fences, no preamble.\n\nJSON shape:\n{"dish":"short name","items":[{"name":"exact ingredient name from the list","grams":150}],"method":"how to make it"}';
+
+async function callClaude(){
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{
+      'content-type':'application/json',
+      'x-api-key':AI.key,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body:JSON.stringify({
+      model:AI.model||'claude-sonnet-5',
+      max_tokens:1024,
+      system:AI_SYSTEM,
+      messages:[{role:'user',content:buildPrompt()}]
+    })
+  });
+  if(!res.ok){
+    let msg='Request failed ('+res.status+')';
+    try{const e=await res.json();if(e&&e.error&&e.error.message)msg=e.error.message;}catch(x){}
+    if(res.status===401)msg='API key rejected. Check it in Setup.';
+    if(res.status===429)msg='Rate limited or out of credit. Try again shortly.';
+    throw new Error(msg);
+  }
+  const data=await res.json();
+  const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n');
+  return parseProposal(text);
+}
+function parseProposal(text){
+  let t=text.trim().replace(/^```json/i,'').replace(/^```/,'').replace(/```$/,'').trim();
+  const a=t.indexOf('{'),b=t.lastIndexOf('}');
+  if(a>=0&&b>a)t=t.slice(a,b+1);
+  const j=JSON.parse(t);
+  if(!j||!Array.isArray(j.items))throw new Error('Unexpected reply');
+  return j;
+}
+
+async function runProposal(){
+  openProposal();
+  try{
+    const j=await callClaude();
+    // match items to library
+    const matched=[];const missing=[];
+    j.items.forEach(it=>{
+      const f=matchFood(it.name);
+      if(f)matched.push({food:f,name:f.name,grams:Math.max(0,+it.grams||0)});
+      else missing.push(it.name);
+    });
+    if(!matched.length)throw new Error('None of the suggested items matched your library. Try again.');
+    // solver: only if out of band
+    const g0=matched.map(m=>m.grams);
+    let grams=g0.slice();
+    if(!inBand(computeMacros(matched,g0),prop.target)){
+      grams=solveGrams(matched,prop.target);
+    }
+    grams=grams.map(g=>Math.round(g/5)*5);
+    // drop tiny
+    const items=[];
+    matched.forEach((m,i)=>{if(grams[i]>=5)items.push({food:m.food,name:m.name,grams:grams[i]});});
+    prop.dish=j.dish||'Suggested meal';
+    prop.method=j.method||'';
+    prop.missing=missing;
+    prop.items=items;
+    prop.base=items.map(x=>x.grams);
+    prop.editing=false;
+    renderProposal();
+  }catch(e){
+    $('prLoading').classList.add('hide');$('prBody').classList.add('hide');
+    $('prError').classList.remove('hide');$('prErrorMsg').textContent=e.message||'Something went wrong.';
+  }
+}
+$('prRetry').onclick=runProposal;
+
+/* ---- macros + solver ---- */
+function computeMacros(items,grams){
+  let p=0,c=0,f=0,k=0;
+  items.forEach((it,i)=>{const m=grams[i]/100,fo=it.food;p+=fo.p*m;c+=fo.c*m;f+=fo.f*m;k+=kcalOf(fo)*m;});
+  return {p,c,f,k};
+}
+function inBand(got,t){
+  const ok=(a,b)=>b<=0?Math.abs(a-b)<=5:Math.abs(a-b)/b<=0.10;
+  return ok(got.p,t.p)&&ok(got.c,t.c)&&ok(got.f,t.f);
+}
+function solveGrams(items,t){
+  const n=items.length;
+  const P=items.map(it=>it.food.p/100),C=items.map(it=>it.food.c/100),F=items.map(it=>it.food.f/100);
+  const g0=items.map(it=>Math.max(0,it.grams||0));
+  const cap=items.map(it=>Math.max(300,(it.grams||50)*3,600));
+  const wReg=0.03;
+  let g=g0.slice(),sp=0,sc=0,sf=0;
+  for(let i=0;i<n;i++){sp+=g[i]*P[i];sc+=g[i]*C[i];sf+=g[i]*F[i];}
+  for(let sweep=0;sweep<80;sweep++){
+    for(let i=0;i<n;i++){
+      sp-=g[i]*P[i];sc-=g[i]*C[i];sf-=g[i]*F[i];
+      const a=P[i]*P[i]+C[i]*C[i]+F[i]*F[i]+wReg;
+      let gi=(wReg*g0[i]-(P[i]*(sp-t.p)+C[i]*(sc-t.c)+F[i]*(sf-t.f)))/a;
+      if(gi<0)gi=0;if(gi>cap[i])gi=cap[i];
+      g[i]=gi;sp+=g[i]*P[i];sc+=g[i]*C[i];sf+=g[i]*F[i];
+    }
+  }
+  return g;
+}
+function matchFood(name){
+  if(!name)return null;
+  const q=String(name).trim().toLowerCase();
+  let f=S.foods.find(x=>x.name.toLowerCase()===q);
+  if(f)return f;
+  f=S.foods.find(x=>pantry.has(x.id)&&x.name.toLowerCase().includes(q));
+  if(f)return f;
+  f=S.foods.find(x=>pantry.has(x.id)&&q.includes(x.name.toLowerCase()));
+  return f||null;
+}
+
+/* ---- render proposal ---- */
+function renderProposal(){
+  $('prLoading').classList.add('hide');$('prError').classList.add('hide');$('prBody').classList.remove('hide');
+  $('prRejectBox').classList.add('hide');
+  $('prTitle').textContent=prop.dish;
+  $('prMethod').textContent=prop.method+(prop.missing&&prop.missing.length?('\n\n(Skipped items not in your library: '+prop.missing.join(', ')+')'):'');
+  const ed=prop.editing;
+  $('prEdit').textContent=ed?'done':'edit grams';
+  $('prReset').classList.toggle('hide',!ed);
+  $('prItems').innerHTML=prop.items.map((it,i)=>`<div class="pline"><div class="pline-n">${esc(it.name)}</div>${ed?`<div><input type="number" inputmode="numeric" data-g="${i}" value="${it.grams}"><span class="pgram-u">g</span></div>`:`<div class="pline-g">${it.grams} g</div>`}</div>`).join('');
+  if(ed){
+    $('prItems').querySelectorAll('[data-g]').forEach(inp=>inp.oninput=()=>{
+      prop.items[+inp.dataset.g].grams=Math.max(0,parseFloat(inp.value)||0);
+      renderVariance();
+    });
+  }
+  renderVariance();
+}
+function renderVariance(){
+  const grams=prop.items.map(it=>it.grams);
+  const got=computeMacros(prop.items,grams),t=prop.target;
+  const ok=inBand(got,t);
+  const vb=$('prVbar');vb.className='vbar '+(ok?'good':'amber');
+  $('prBandLabel').textContent=ok?'On target':'Off target';
+  $('prKcal').textContent=r0(got.k)+' / '+t.kcal+' kcal';
+  const cell=(label,a,b)=>{const off=b<=0?Math.abs(a-b)>5:Math.abs(a-b)/b>0.10;return `<span>${label} <b class="${off?'off':''}">${r0(a)}</b>/${r0(b)}</span>`;};
+  $('prVrow').innerHTML=cell('P',got.p,t.p)+cell('C',got.c,t.c)+cell('F',got.f,t.f);
+}
+$('prEdit').onclick=()=>{prop.editing=!prop.editing;renderProposal();};
+$('prReset').onclick=()=>{prop.items.forEach((it,i)=>it.grams=prop.base[i]);renderProposal();toast('Back to Claude’s version');};
+$('prApprove').onclick=()=>{
+  let added=0;
+  prop.items.forEach(it=>{
+    if(it.grams<=0)return;
+    const m=it.grams/100,fo=it.food;
+    addEntry({id:uid(),food:fo.id,day,name:fo.name,g:it.grams,k:kcalOf(fo)*m,p:fo.p*m,c:fo.c*m,f:fo.f*m,meal:prop.mealId});
+    added++;
+  });
+  closeSheet();if(view==='today')renderToday();
+  toast(added+' item'+(added>1?'s':'')+' logged');
+};
+$('prRejectBtn').onclick=()=>{$('prRejectBox').classList.toggle('hide');if(!$('prRejectBox').classList.contains('hide'))setTimeout(()=>$('prReason').focus(),200);};
+$('prReasonSend').onclick=()=>{
+  const reason=$('prReason').value.trim()||'not quite right';
+  prop.history.push({dish:prop.dish,reason});
+  if(prop.history.length>3)prop.history.shift();
+  $('prReason').value='';
+  runProposal();
+};
+
+
 /* ================= settings ================= */
 function recalcKcal(){
   const v=id=>{const x=parseFloat($(id).value);return isFinite(x)&&x>=0?x:0;};
@@ -949,6 +1272,8 @@ function renderSet(){
   recalcKcal();
   $('setWho').textContent=(S.profile&&S.profile.name)||'—';
   $('whoLabel').textContent=(S.profile&&S.profile.name)||'';
+  $('aiKey').value=AI.key||'';
+  $('aiModel').value=AI.model||'claude-sonnet-5';
   mealDraft=meals().map(m=>({id:m.id,name:m.name,p:+m.p||0,c:+m.c||0,f:+m.f||0}));
   renderMealEditor();
   renderTplList();
@@ -1024,6 +1349,10 @@ $('saveTargets').onclick=()=>{
   saveTargets({kcal:kcalFromMacros(p,c,f),p,c,f,w:isFinite(wv)&&wv>0?wv:null});
   toast('Targets saved');renderToday();
 };
+$('saveAI').onclick=()=>{
+  AI.key=$('aiKey').value.trim();AI.model=$('aiModel').value;saveAI();
+  toast(AI.key?('Saved · '+(MODEL_LABEL[AI.model]||AI.model)):'Key cleared');
+};
 $('copyCode').onclick=async()=>{
   const code=btoa(JSON.stringify({url:CFG.url,key:CFG.key}));
   try{await navigator.clipboard.writeText(code);toast('Code copied — send it to the other phone');}
@@ -1098,5 +1427,6 @@ else if(!CFG.pid){
   loadCache();hideGate();boot();
 }
 </script>
+
 </body>
 </html>
